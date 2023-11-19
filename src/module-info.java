@@ -5,5 +5,6 @@
  * @author willi
  *
  */
-module OOAD_LAB_PROJECT {
+module OOAD_LAB {
+	requires java.sql;
 }
