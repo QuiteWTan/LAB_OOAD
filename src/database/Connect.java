@@ -46,6 +46,7 @@ public class Connect {
 		}
 	}
 	
+	
 	public ResultSet selectData(String query) {
 		try {
 			rs = stmt.executeQuery(query);
