@@ -61,11 +61,11 @@ public class User {
 		this.role = role;
 	}
 	
-	public ArrayList<User> GetAllUsers() {
+	public ArrayList<User> getAllUsers() {
 		
 		Connect db = Connect.getInstance();
 		
-		String query = "SELECT * FROM Users";
+		String query = "SELECT * FROM `users`";
 		
 		ResultSet data = db.selectData(query);
 		
@@ -88,4 +88,98 @@ public class User {
 		
 		return userData;
 	}
+	
+	
+	public User getUser(Integer userId) {
+        Connect db = Connect.getInstance();
+
+        String query = String.format("SELECT * FROM `users` WHERE userId = %d", userId);
+
+        ResultSet data = db.selectData(query);
+
+        try {
+            String usernameData = data.getString("username");
+            String emailData = data.getString("email");
+            String passwordData = data.getString("password");
+            String roleData = data.getString("role");
+
+            return new User(userId, usernameData, emailData, passwordData, roleData);
+                
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+	
+	public void addUser(String username, String email, String password, String role) throws SQLException {
+	    Connect db = Connect.getInstance();
+
+	    String query = String.format("INSERT INTO `users` (username, email, password, role) VALUES ('%s', '%s', '%s', '%s')",
+	            username, email, password, role);
+
+	    db.execute(query);
+	    
+	}
+	
+	public void deleteUser(Integer userId) {
+        Connect db = Connect.getInstance();
+
+        String query = String.format("DELETE FROM `users` WHERE userId = %d", userId);
+
+        db.execute(query);
+        
+    }
+	
+    public ArrayList<User> getAllUsersInRole(String role) {
+        Connect db = Connect.getInstance();
+
+        String query = String.format("SELECT * FROM `users` WHERE role = '%s'", role);
+
+        ResultSet data = db.selectData(query);
+
+        ArrayList<User> userData = new ArrayList<>();
+
+        try {
+            while (data.next()) {
+                Integer userIdData = data.getInt("userId");
+                String usernameData = data.getString("username");
+                String emailData = data.getString("email");
+                String passwordData = data.getString("password");
+
+                userData.add(new User(userIdData, usernameData, emailData, passwordData, role));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userData;
+    }
+    
+    public ArrayList<User> getAllUsersByEmail(String email) {
+        Connect db = Connect.getInstance();
+
+        String query = String.format("SELECT * FROM Users WHERE email = '%s'", email);
+
+        ResultSet data = db.selectData(query);
+
+        ArrayList<User> userData = new ArrayList<>();
+
+        try {
+            while (data.next()) {
+                Integer userIdData = data.getInt("userId");
+                String usernameData = data.getString("username");
+                String userEmailData = data.getString("email");
+                String passwordData = data.getString("password");
+                String roleData = data.getString("role");
+
+                userData.add(new User(userIdData, usernameData, userEmailData, passwordData, roleData));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userData;
+    }
+    
 }
