@@ -37,7 +37,7 @@ public class Connect {
 		}
 	}
 	
-	public void insertData(String query) {
+	public void executeUpdate(String query) {
 		try {
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
@@ -45,6 +45,7 @@ public class Connect {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public ResultSet selectData(String query) {
 		try {
