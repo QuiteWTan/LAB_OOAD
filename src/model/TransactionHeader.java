@@ -69,7 +69,7 @@ public class TransactionHeader {
 		ResultSet rs = db.selectData(query);
 		try {
 			String roleData = rs.getString("role");
-			if(roleData != "Fan") {
+			if(!roleData.equals("Fan")) {
 				return false;
 			}
 			String queryDelete = String.format("SELECT * FROM transactionheaders where userId = '%d' ", UserId);
