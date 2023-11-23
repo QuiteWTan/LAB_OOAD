@@ -119,7 +119,7 @@ public class User {
 	    String query = String.format("INSERT INTO Users (username, email, password, role) VALUES ('%s', '%s', '%s', '%s')",
 	            username, email, password, role);
 
-	    db.executeUpdate(query);
+	    db.execute(query);
 		return true;
 	}
 	
@@ -128,7 +128,7 @@ public class User {
 
         String query = String.format("DELETE FROM Users WHERE userId = %d", userId);
 
-        db.executeUpdate(query);
+        db.execute(query);
         return true;
     }
 	
