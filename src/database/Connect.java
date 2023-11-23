@@ -37,7 +37,7 @@ public class Connect {
 		}
 	}
 	
-	public void insertData(String query) {
+	public void execute(String query) {
 		try {
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
