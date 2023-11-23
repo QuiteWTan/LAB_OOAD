@@ -57,8 +57,6 @@ public class Item {
 		
 		ResultSet rs = db.selectData(query);
 		
-		Item item = null;
-		
 		try {
 			Integer itemId = rs.getInt("itemId");
 			Integer userId = rs.getInt("userId");
@@ -66,19 +64,19 @@ public class Item {
 			String itemDescription = rs.getString("itemDescription");
 			Integer itemPrice = rs.getInt("price");
 			
-			item = new Item(itemId, userId, itemName, itemDescription, itemPrice);
+			return new Item(itemId, userId, itemName, itemDescription, itemPrice);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return item;
+		return null;
 	}
 	
 	public void addItem(Integer userId, String itemName, String itemDescription, Integer price) {
 		
-		String query = String.format("INSERT INTO `items` VALUES (%d, %s, %s, %d", userId, itemName, itemDescription, price);
+		String query = String.format("INSERT INTO `items` VALUES (%d, '%s', '%s' , %d", userId, itemName, itemDescription, price);
 		
 		Connect db = Connect.getInstance();
 		

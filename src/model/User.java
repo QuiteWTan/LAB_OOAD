@@ -65,7 +65,7 @@ public class User {
 		
 		Connect db = Connect.getInstance();
 		
-		String query = "SELECT * FROM Users";
+		String query = "SELECT * FROM `users`";
 		
 		ResultSet data = db.selectData(query);
 		
@@ -90,22 +90,21 @@ public class User {
 	}
 	
 	
-	public static User getUser(Integer userId) {
+	public User getUser(Integer userId) {
         Connect db = Connect.getInstance();
 
-        String query = String.format("SELECT * FROM Users WHERE userId = %d", userId);
+        String query = String.format("SELECT * FROM `users` WHERE userId = %d", userId);
 
         ResultSet data = db.selectData(query);
 
         try {
-            if (data.next()) {
-                String usernameData = data.getString("username");
-                String emailData = data.getString("email");
-                String passwordData = data.getString("password");
-                String roleData = data.getString("role");
+            String usernameData = data.getString("username");
+            String emailData = data.getString("email");
+            String passwordData = data.getString("password");
+            String roleData = data.getString("role");
 
-                return new User(userId, usernameData, emailData, passwordData, roleData);
-            }
+            return new User(userId, usernameData, emailData, passwordData, roleData);
+                
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,29 +112,29 @@ public class User {
         return null;
     }
 	
-	public static boolean addUser(String username, String email, String password, String role) throws SQLException {
+	public void addUser(String username, String email, String password, String role) throws SQLException {
 	    Connect db = Connect.getInstance();
 
-	    String query = String.format("INSERT INTO Users (username, email, password, role) VALUES ('%s', '%s', '%s', '%s')",
+	    String query = String.format("INSERT INTO `users` (username, email, password, role) VALUES ('%s', '%s', '%s', '%s')",
 	            username, email, password, role);
 
 	    db.execute(query);
-		return true;
+	    
 	}
 	
-	public static boolean deleteUser(Integer userId) {
+	public void deleteUser(Integer userId) {
         Connect db = Connect.getInstance();
 
-        String query = String.format("DELETE FROM Users WHERE userId = %d", userId);
+        String query = String.format("DELETE FROM `users` WHERE userId = %d", userId);
 
         db.execute(query);
-        return true;
+        
     }
 	
-    public static ArrayList<User> getAllUsersInRole(String role) {
+    public ArrayList<User> getAllUsersInRole(String role) {
         Connect db = Connect.getInstance();
 
-        String query = String.format("SELECT * FROM Users WHERE role = '%s'", role);
+        String query = String.format("SELECT * FROM `users` WHERE role = '%s'", role);
 
         ResultSet data = db.selectData(query);
 
@@ -157,7 +156,7 @@ public class User {
         return userData;
     }
     
-    public static ArrayList<User> getAllUsersByEmail(String email) {
+    public ArrayList<User> getAllUsersByEmail(String email) {
         Connect db = Connect.getInstance();
 
         String query = String.format("SELECT * FROM Users WHERE email = '%s'", email);
@@ -170,10 +169,11 @@ public class User {
             while (data.next()) {
                 Integer userIdData = data.getInt("userId");
                 String usernameData = data.getString("username");
+                String userEmailData = data.getString("email");
                 String passwordData = data.getString("password");
                 String roleData = data.getString("role");
 
-                userData.add(new User(userIdData, usernameData, email, passwordData, roleData));
+                userData.add(new User(userIdData, usernameData, userEmailData, passwordData, roleData));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,6 +181,5 @@ public class User {
 
         return userData;
     }
-    
     
 }
