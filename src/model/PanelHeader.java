@@ -1,5 +1,9 @@
 package model;
 
+import java.sql.SQLException;
+
+import database.Connect;
+
 public class PanelHeader {
 	private Integer panelId;
 	private String userId;
@@ -87,7 +91,59 @@ public class PanelHeader {
 		this.isFinished = isFinished;
 	}
 	
+	public void getAllPanels() throws SQLException {
+		Connect db = Connect.getInstance();
+		
+		String query = String.format("SELECT * FROM panelHeaders");
+		
+		db.execute(query);
+	}
 	
+	public void getPanelById(Integer panelId) throws SQLException {
+		Connect db = Connect.getInstance();
+		
+		String query = String.format("SELECT * FROM panelHeaders WHERE panelId = %d", panelId);
+		
+		db.execute(query);
+	}
+	
+	//Create panel
+	
+	//Set panel time
+	
+	public void finishPanel(Integer panelId) throws SQLException {
+		Connect db = Connect.getInstance();
+		
+		String query = String.format("UPDATE panelHeaders SET isFinished = 1 WHERE panelId = %d", panelId);
+		
+		db.execute(query);
+	}
+	
+	public void getUnfinishedPanels() throws SQLException {
+		Connect db = Connect.getInstance();
+		
+		String query = String.format("SELECT * FROM panelHeaders WHERE isFinished = 0");
+		
+		db.execute(query);
+	}
+	
+	public void getFinishedPanels() throws SQLException {
+		Connect db = Connect.getInstance();
+		
+		String query = String.format("SELECT * FROM panelHeaders WHERE isFinished = 1");
+		
+		db.execute(query);
+	}
+	
+	//Delete panel by influence
+	
+	public void getPanelByInfluencer(Integer userId) {
+		Connect db = Connect.getInstance();
+		
+		String query = String.format("SELECT * FROM panelHeaders WHERE userId = %d", userId);
+		
+		db.execute(query);
+	}
 	
 	
 	

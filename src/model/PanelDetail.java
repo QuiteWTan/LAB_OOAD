@@ -54,7 +54,13 @@ public class PanelDetail {
         db.execute(query);        
     }
     
-    //delete fan attendance
+    public void deleteAttendee(Integer userId) throws SQLException {
+    	Connect db = Connect.getInstance();
+    	
+    	String query = String.format("DELETE FROM `PanelDetails` WHERE userId = %d ", userId);
+    	
+    	db.execute(query);
+    }
     
 }
 	
