@@ -1,6 +1,8 @@
 package model;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import database.Connect;
 
@@ -91,23 +93,68 @@ public class PanelHeader {
 		this.isFinished = isFinished;
 	}
 	
-	public void getAllPanels() throws SQLException {
+	public ArrayList<PanelHeader> getAllPanels() throws SQLException {
 		Connect db = Connect.getInstance();
+		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
 		String query = String.format("SELECT * FROM panelHeaders");
+		ResultSet rs = db.selectData(query);
 		
-		db.execute(query);
+		try {
+			while(rs.next()) {
+				Integer panelId = rs.getInt("panelId");
+				String userId = rs.getString("userId");
+				String panelTitle = rs.getString("panelTitle");
+				String panelDescription = rs.getString("panelDescription");
+				String location = rs.getString("location");
+				String startTime = rs.getString("startTime");
+				String endTime = rs.getString("endTime");
+				Boolean isFinished = rs.getBoolean("isFinished");
+				
+				PanelList.add(new PanelHeader(panelId, userId, panelTitle, panelDescription, location, startTime, endTime, isFinished));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return PanelList;
+		
 	}
 	
-	public void getPanelById(Integer panelId) throws SQLException {
-		Connect db = Connect.getInstance();
+	public PanelHeader getPanelById(Integer panelId) throws SQLException {
+		Connect db = Connect.getInstance();		
 		
 		String query = String.format("SELECT * FROM panelHeaders WHERE panelId = %d", panelId);
+		ResultSet rs = db.selectData(query);
 		
-		db.execute(query);
+		try {
+			while(rs.next()) {
+				Integer panelIds = rs.getInt("panelId");
+				String userId = rs.getString("userId");
+				String panelTitle = rs.getString("panelTitle");
+				String panelDescription = rs.getString("panelDescription");
+				String location = rs.getString("location");
+				String startTime = rs.getString("startTime");
+				String endTime = rs.getString("endTime");
+				Boolean isFinished = rs.getBoolean("isFinished");
+				
+				return new PanelHeader(panelIds, userId, panelTitle, panelDescription, location, startTime, endTime, isFinished);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+		
 	}
 	
-	//Create panel
+	//Add panel
+//	public void addPanel(Integer userId, String panelTitle, String panelDescription, String location, String startTime, String endTime) throws SQLException {
+//		
+//	}
 	
 	//Set panel time
 	
@@ -119,30 +166,90 @@ public class PanelHeader {
 		db.execute(query);
 	}
 	
-	public void getUnfinishedPanels() throws SQLException {
+	public ArrayList<PanelHeader> getUnfinishedPanels() throws SQLException {
 		Connect db = Connect.getInstance();
+		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
 		String query = String.format("SELECT * FROM panelHeaders WHERE isFinished = 0");
+		ResultSet rs = db.selectData(query);
 		
-		db.execute(query);
+		try {
+			while(rs.next()) {
+				Integer panelId = rs.getInt("panelId");
+				String userId = rs.getString("userId");
+				String panelTitle = rs.getString("panelTitle");
+				String panelDescription = rs.getString("panelDescription");
+				String location = rs.getString("location");
+				String startTime = rs.getString("startTime");
+				String endTime = rs.getString("endTime");
+				Boolean isFinished = rs.getBoolean("isFinished");
+				
+				PanelList.add(new PanelHeader(panelId, userId, panelTitle, panelDescription, location, startTime, endTime, isFinished));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return PanelList;
 	}
 	
-	public void getFinishedPanels() throws SQLException {
+	public ArrayList<PanelHeader> getFinishedPanels() throws SQLException {
 		Connect db = Connect.getInstance();
+		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
 		String query = String.format("SELECT * FROM panelHeaders WHERE isFinished = 1");
+		ResultSet rs = db.selectData(query);
 		
-		db.execute(query);
+		try {
+			while(rs.next()) {
+				Integer panelId = rs.getInt("panelId");
+				String userId = rs.getString("userId");
+				String panelTitle = rs.getString("panelTitle");
+				String panelDescription = rs.getString("panelDescription");
+				String location = rs.getString("location");
+				String startTime = rs.getString("startTime");
+				String endTime = rs.getString("endTime");
+				Boolean isFinished = rs.getBoolean("isFinished");
+				
+				PanelList.add(new PanelHeader(panelId, userId, panelTitle, panelDescription, location, startTime, endTime, isFinished));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return PanelList;
 	}
 	
 	//Delete panel by influence
 	
-	public void getPanelByInfluencer(Integer userId) {
+	public PanelHeader getPanelByInfluencer(Integer userId) {
 		Connect db = Connect.getInstance();
+		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
 		String query = String.format("SELECT * FROM panelHeaders WHERE userId = %d", userId);
+		ResultSet rs = db.selectData(query);
 		
-		db.execute(query);
+		try {
+			while(rs.next()) {
+				Integer panelId = rs.getInt("panelId");
+				String userIds = rs.getString("userId");
+				String panelTitle = rs.getString("panelTitle");
+				String panelDescription = rs.getString("panelDescription");
+				String location = rs.getString("location");
+				String startTime = rs.getString("startTime");
+				String endTime = rs.getString("endTime");
+				Boolean isFinished = rs.getBoolean("isFinished");
+				
+				return new PanelHeader(panelId, userIds, panelTitle, panelDescription, location, startTime, endTime, isFinished);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	

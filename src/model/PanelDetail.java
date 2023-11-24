@@ -1,6 +1,8 @@
 package model;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import database.Connect;
 
@@ -38,12 +40,29 @@ public class PanelDetail {
         db.execute(query);        
     }
     
-    public void getAllAttendee(Integer panelId) throws SQLException {
+    public ArrayList<User> getAllAttendee(Integer panelId) throws SQLException {
+    	ArrayList<User> listUser = new ArrayList<>();
     	Connect db = Connect.getInstance();
     	
     	String query = String.format("SELECT us.* FROM users us JOIN panelDetails pd ON us.userId = pd.userId WHERE pd.panelId = %d", panelId);
+    	ResultSet rs = db.selectData(query);
     	
-    	db.execute(query);
+    	try {
+			while(rs.next()) {
+				Integer userId = rs.getInt("userId");
+				String username = rs.getString("username");
+				String email = rs.getString("email");
+				String password = rs.getString("password");
+				String role = rs.getString("role"); 
+				
+				listUser.add(new User(userId, username, email, password, role));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return listUser;	
     }
     
     public void deletePanel(Integer panelId) throws SQLException {
