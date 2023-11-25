@@ -90,7 +90,7 @@ public class User {
 	}
 	
 	
-	public User getUser(Integer userId) {
+	public static User getUser(Integer userId) {
         Connect db = Connect.getInstance();
 
         String query = String.format("SELECT * FROM `users` WHERE userId = %d", userId);
@@ -112,14 +112,15 @@ public class User {
         return null;
     }
 	
-	public void addUser(String username, String email, String password, String role) throws SQLException {
+	public static void addUser(String username, String email, String password, String role) {
+		
 	    Connect db = Connect.getInstance();
 
 	    String query = String.format("INSERT INTO `users` (username, email, password, role) VALUES ('%s', '%s', '%s', '%s')",
 	            username, email, password, role);
 
 	    db.execute(query);
-	    
+  
 	}
 	
 	public void deleteUser(Integer userId) {
@@ -159,7 +160,7 @@ public class User {
     public ArrayList<User> getAllUsersByEmail(String email) {
         Connect db = Connect.getInstance();
 
-        String query = String.format("SELECT * FROM Users WHERE email = '%s'", email);
+        String query = String.format("SELECT * FROM users WHERE email = '%s'", email);
 
         ResultSet data = db.selectData(query);
 
@@ -180,6 +181,54 @@ public class User {
         }
 
         return userData;
+    }
+    
+    public static Boolean searchExistingUsername(String username) {
+    	
+    	Connect db = Connect.getInstance();
+    	
+    	String query = String.format("SELECT username FROM users WHERE username = '%s'", username);
+    	
+    	ResultSet data = db.selectData(query);
+    	
+    	String usernameData = null;
+    	
+    	try {
+			usernameData = data.getString("username");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	if(usernameData == null) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
+public static Boolean searchExistingEmail(String email) {
+    	
+    	Connect db = Connect.getInstance();
+    	
+    	String query = String.format("SELECT email FROM users WHERE email = '%s'", email);
+    	
+    	ResultSet data = db.selectData(query);
+    	
+    	String emailData = null;
+    	
+    	try {
+			emailData = data.getString("email");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	if(emailData == null) {
+    		return true;
+    	}
+    	
+    	return false;
     }
     
 }
