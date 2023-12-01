@@ -58,5 +58,9 @@ public class Connect {
 		return rs;
 		
 	}
+	
+	public void close() {
+		connect.close();
+	}
 
 }

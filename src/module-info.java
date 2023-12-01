@@ -1,12 +1,13 @@
-/**
- * 
- */
-/**
- * @author willi
- *
- */
 module OOAD_LAB {
-	requires java.sql;
+	opens app;
+	opens controller;
+	opens database;
+	opens model;
+	opens view;
+		
 	requires javafx.graphics;
 	requires javafx.controls;
+	requires java.sql;
+	requires java.desktop;
+	requires javafx.base;
 }

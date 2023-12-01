@@ -1,7 +1,10 @@
 package controller;
 
+import java.util.ArrayList;
+
 import database.Connect;
 import model.User;
+import view.ViewAccount;
 
 public class UserController {
 
@@ -54,6 +57,79 @@ public class UserController {
 	    
 	    return false;
   
+	}
+	
+	
+	private User currUser;
+	private Boolean isAdmin; 
+	
+	// Account
+	private ArrayList<User> users;
+	
+	
+	public UserController() {
+		
+		// Dummy User
+		this.currUser = new User(1, "admin", "admin@gmail.com", "admin", "Admin");
+//		currUser = new User(1, "user1", "user1@gmail.com", "user1", "User");
+		this.isAdmin = currUser.getRole().equals("Admin") ? true : false;
+		
+		this.users = new ArrayList<>();
+	}
+	
+	public Scene showFanAccount() {
+		this.users = User.getAllUsersInRole("Fan");
+		String titleString = "Fan Accounts";
+		
+		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
+		
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
+			this.users = User.getAllUsersInRole("Fan");
+			view.refreshUserList(this.users);
+        });
+        
+        return view.getViewScene();
+
+	}
+	
+	public Scene showInfluencerAccount() {
+		this.users = User.getAllUsersInRole("Influencer");
+		String titleString = "Influencer Accounts";
+		
+		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
+		
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
+			this.users = User.getAllUsersInRole("Influencer");
+			view.refreshUserList(this.users);
+        });
+        
+        
+        return view.getViewScene();
+	}
+	
+	public Scene showVendorAccount() {
+		this.users = User.getAllUsersInRole("Vendor");
+		String titleString = "Vendor Accounts";
+		
+		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
+		
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
+			this.users = User.getAllUsersInRole("Vendor");
+			view.refreshUserList(this.users);
+        });
+        
+        
+        return view.getViewScene();
+		
+	}
+	
+	public void deleteSelectedUser(ObservableList<User> users) {
+		for (User user : users) {
+			User.deleteUser(user.getUserId());	
+		}	
 	}
 	
 }
