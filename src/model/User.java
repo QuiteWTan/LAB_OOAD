@@ -123,7 +123,7 @@ public class User {
   
 	}
 	
-	public void deleteUser(Integer userId) {
+	public static void deleteUser(Integer userId) {
         Connect db = Connect.getInstance();
 
         String query = String.format("DELETE FROM `users` WHERE userId = %d", userId);
@@ -132,7 +132,7 @@ public class User {
         
     }
 	
-    public ArrayList<User> getAllUsersInRole(String role) {
+    public static ArrayList<User> getAllUsersInRole(String role) {
         Connect db = Connect.getInstance();
 
         String query = String.format("SELECT * FROM `users` WHERE role = '%s'", role);

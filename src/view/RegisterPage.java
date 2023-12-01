@@ -1,11 +1,12 @@
 package view;
 
-import java.io.InputStream;
-
 import controller.UserController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -13,6 +14,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import app.Main;
 
 public class RegisterPage {
 
@@ -28,8 +30,33 @@ public class RegisterPage {
 	ToggleGroup roleSelectionGroup;
 	Button submitButton;
 	
+	MenuBar menuBar;
+	Menu menu;
+	MenuItem menuItemHome;
+	
 	ScrollPane scrollPane;
-	InputStream file;
+	
+	private void setMenu() {
+		menuBar = new MenuBar();
+		menu = new Menu("Menu");
+		menuItemHome = new MenuItem("Home");
+		
+		menuBar.getMenus().add(menu);
+		menu.getItems().add(menuItemHome);
+		
+		borderPane.setTop(menuBar);
+		
+		menuItemHome.setOnAction(e->{
+			
+			Main main = new Main();
+			try {
+				main.start(stage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+	}
 	
 	private void action() {
 		
@@ -91,6 +118,7 @@ public class RegisterPage {
 		
 		action();
 		
+		setMenu();
 		
 		borderPane.setCenter(gridPane);
 		
@@ -99,11 +127,11 @@ public class RegisterPage {
 	
 	public RegisterPage(Stage stage) {
 			
-			this.stage = stage;
-			initialize();
-			
-			this.stage.setScene(scene);
-			this.stage.setTitle("Register");
-			this.stage.show();
-		}
+		this.stage = stage;
+		initialize();
+		
+		this.stage.setScene(scene);
+		this.stage.setTitle("Register");
+		this.stage.show();
+	}
 }

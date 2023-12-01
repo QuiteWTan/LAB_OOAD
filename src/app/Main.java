@@ -1,29 +1,63 @@
 package app;
 
-import controller.FanController;
-import controller.UserController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import view.ViewAccount;
+import view.RegisterPage;
 
-public class Main extends Application {	
+public class Main extends Application{
+
+	Stage stage;
+	Scene scene;
 	
+	BorderPane borderPane;
+	MenuBar menuBar;
+	Menu menu;
+	MenuItem menuItemRegister;
+	
+	private void setMenu() {
+		menuBar = new MenuBar();
+		menu = new Menu("Menu");
+		menuItemRegister = new MenuItem("Register");
+		
+		menuBar.getMenus().add(menu);
+		menu.getItems().add(menuItemRegister);
+		
+		borderPane.setTop(menuBar);
+		
+		menuItemRegister.setOnAction(e->{
+			
+			new RegisterPage(stage);
+		});
+	}
+	
+	private void initialize(){
+		borderPane = new BorderPane();
+		
+		setMenu();
+		
+		scene = new Scene(borderPane, 600, 600);
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-//	@Override
-	public void start(Stage stage) throws Exception {
-//		UserController uc = new UserController();
-		FanController fc = new FanController();
+	@Override
+	public void start(Stage primaryStage) throws Exception {
 		
-		stage.setScene(fc.showAllPanel());
+		this.stage = primaryStage;
+		initialize();
 		
-		stage.setTitle("JAVA FX");
-		stage.show();
+		this.stage.setScene(scene);
+		this.stage.setTitle("SNova");
+		
+		
+		this.stage.show();	
 	}
 
 }

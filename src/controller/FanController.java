@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.scene.Scene;
@@ -21,7 +22,12 @@ public class FanController {
 	
 	
 	public Scene showAllPanel() {
-		this.panels = PanelHeader.getAllPanels();
+		try {
+			this.panels = PanelHeader.getAllPanels();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		String titleString = "Panels";
 		ViewPanelFan view = new ViewPanelFan(this.panels, titleString);

@@ -93,7 +93,7 @@ public class PanelHeader {
 		this.isFinished = isFinished;
 	}
 	
-	public ArrayList<PanelHeader> getAllPanels() throws SQLException {
+	public static ArrayList<PanelHeader> getAllPanels() throws SQLException {
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
