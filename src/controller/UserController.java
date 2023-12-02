@@ -6,16 +6,19 @@ import database.Connect;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import model.User;
+import database.UserModel;
 import view.ViewAccount;
 
 public class UserController {
-
-	public static Boolean validateUsername(String username) {
+	
+	UserModel userModel = new UserModel();
+	
+	public Boolean validateUsername(String username) {
 		
 		if(username.isBlank()) {
 			return false;
 			
-		} else if(!User.searchExistingUsername(username)) {
+		} else if(!userModel.searchExistingUsername(username)) {
 			return false;
 			
 		}
@@ -23,9 +26,9 @@ public class UserController {
 		return true;
 	}
 	
-	public static Boolean validateEmail(String email) {
+	public Boolean validateEmail(String email) {
 		
-		if(!email.contains("@") || !User.searchExistingEmail(email)) {
+		if(!email.contains("@") || !userModel.searchExistingEmail(email)) {
 			return false;
 			
 		}
@@ -34,7 +37,7 @@ public class UserController {
 		
 	}
 	
-	public static Boolean validatePassword(String password, String confirmPassword) {
+	public Boolean validatePassword(String password, String confirmPassword) {
 		
 		if(password.length() < 6 || !password.matches("^[a-zA-Z0-9]+$") || !password.equals(confirmPassword)){
 			return false;
@@ -44,7 +47,7 @@ public class UserController {
 		return true;
 	}
 	
-	public static Boolean addUser(String username, String email, String password, String confirmPassword, String role) {
+	public Boolean addUser(String username, String email, String password, String confirmPassword, String role) {
 		
 	    Boolean usernameValid = validateUsername(username);
 	    Boolean emailValid = validateEmail(email);
@@ -52,7 +55,7 @@ public class UserController {
 	    
 	    if(usernameValid && emailValid && passwordValid) {
 	    	
-	    	User.addUser(username, email, password, role);
+	    	userModel.addUser(username, email, password, role);
 	    	
 	    	return true;
 	    }
@@ -61,77 +64,76 @@ public class UserController {
   
 	}
 	
-	
-	private User currUser;
-	private Boolean isAdmin; 
-	
-	// Account
-	private ArrayList<User> users;
-	
-	
-	public UserController() {
-		
-		// Dummy User
-		this.currUser = new User(1, "admin", "admin@gmail.com", "admin", "Admin");
-//		currUser = new User(1, "user1", "user1@gmail.com", "user1", "User");
-		this.isAdmin = currUser.getRole().equals("Admin") ? true : false;
-		
-		this.users = new ArrayList<>();
-	}
-	
-	public Scene showFanAccount() {
-		this.users = User.getAllUsersInRole("Fan");
-		String titleString = "Fan Accounts";
-		
-		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-		
-		view.setButtonClickHandler(() -> {
-			deleteSelectedUser(view.getSelectedUsers());
-			this.users = User.getAllUsersInRole("Fan");
-			view.refreshUserList(this.users);
-        });
-        
-        return view.getViewScene();
-
-	}
-	
-	public Scene showInfluencerAccount() {
-		this.users = User.getAllUsersInRole("Influencer");
-		String titleString = "Influencer Accounts";
-		
-		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-		
-		view.setButtonClickHandler(() -> {
-			deleteSelectedUser(view.getSelectedUsers());
-			this.users = User.getAllUsersInRole("Influencer");
-			view.refreshUserList(this.users);
-        });
-        
-        
-        return view.getViewScene();
-	}
-	
-	public Scene showVendorAccount() {
-		this.users = User.getAllUsersInRole("Vendor");
-		String titleString = "Vendor Accounts";
-		
-		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-		
-		view.setButtonClickHandler(() -> {
-			deleteSelectedUser(view.getSelectedUsers());
-			this.users = User.getAllUsersInRole("Vendor");
-			view.refreshUserList(this.users);
-        });
-        
-        
-        return view.getViewScene();
-		
-	}
-	
-	public void deleteSelectedUser(ObservableList<User> users) {
-		for (User user : users) {
-			User.deleteUser(user.getUserId());	
-		}	
-	}
+//	private User currUser;
+//	private Boolean isAdmin; 
+//	
+//	// Account
+//	private ArrayList<User> users;
+//	
+//	
+//	public UserController() {
+//		
+//		// Dummy User
+//		this.currUser = new User(1, "admin", "admin@gmail.com", "admin", "Admin");
+////		currUser = new User(1, "user1", "user1@gmail.com", "user1", "User");
+//		this.isAdmin = currUser.getRole().equals("Admin") ? true : false;
+//		
+//		this.users = new ArrayList<>();
+//	}
+//	
+//	public Scene showFanAccount() {
+//		this.users = userModel.getAllUsersInRole("Fan");
+//		String titleString = "Fan Accounts";
+//		
+//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
+//		
+//		view.setButtonClickHandler(() -> {
+//			deleteSelectedUser(view.getSelectedUsers());
+//			this.users = userModel.getAllUsersInRole("Fan");
+//			view.refreshUserList(this.users);
+//        });
+//        
+//        return view.getViewScene();
+//
+//	}
+//	
+//	public Scene showInfluencerAccount() {
+//		this.users = userModel.getAllUsersInRole("Influencer");
+//		String titleString = "Influencer Accounts";
+//		
+//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
+//		
+//		view.setButtonClickHandler(() -> {
+//			deleteSelectedUser(view.getSelectedUsers());
+//			this.users = userModel.getAllUsersInRole("Influencer");
+//			view.refreshUserList(this.users);
+//        });
+//        
+//        
+//        return view.getViewScene();
+//	}
+//	
+//	public Scene showVendorAccount() {
+//		this.users = userModel.getAllUsersInRole("Vendor");
+//		String titleString = "Vendor Accounts";
+//		
+//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
+//		
+//		view.setButtonClickHandler(() -> {
+//			deleteSelectedUser(view.getSelectedUsers());
+//			this.users = userModel.getAllUsersInRole("Vendor");
+//			view.refreshUserList(this.users);
+//        });
+//        
+//        
+//        return view.getViewScene();
+//		
+//	}
+//	
+//	public void deleteSelectedUser(ObservableList<User> users) {
+//		for (User user : users) {
+//			userModel.deleteUser(user.getUserId());	
+//		}	
+//	}
 	
 }

@@ -1,5 +1,4 @@
 module OOAD_LAB {
-	opens app;
 	opens controller;
 	opens database;
 	opens model;

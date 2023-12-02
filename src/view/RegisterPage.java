@@ -1,68 +1,56 @@
 package view;
 
 import controller.UserController;
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import app.Main;
 
-public class RegisterPage {
+public class RegisterPage extends Application{
+	
+	UserController userController = new UserController();
 
 	Stage stage;
 	Scene scene;
 	
+	VBox vBox;
 	GridPane gridPane;
 	BorderPane borderPane;
 	
 	Label label, usernameLabel, emailLabel, passwordLabel, confirmPasswordLabel, roleLabel, resultLabel;
-	TextField usernameInput, emailInput, passwordInput, confirmPasswordInput;
+	TextField usernameInput, emailInput, confirmPasswordInput;
+	PasswordField passwordInput;
 	RadioButton vendorRadioButton, influencerRadioButton;
 	ToggleGroup roleSelectionGroup;
 	Button submitButton;
 	
 	MenuBar menuBar;
 	Menu menu;
-	MenuItem menuItemHome;
-	
-	ScrollPane scrollPane;
+	MenuItem menuItemLogin;
 	
 	private void setMenu() {
+		
 		menuBar = new MenuBar();
 		menu = new Menu("Menu");
-		menuItemHome = new MenuItem("Home");
 		
-		menuBar.getMenus().add(menu);
-		menu.getItems().add(menuItemHome);
-		
-		borderPane.setTop(menuBar);
-		
-		menuItemHome.setOnAction(e->{
-			
-			Main main = new Main();
-			try {
-				main.start(stage);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
 	}
 	
 	private void action() {
 		
 		submitButton.setOnMouseClicked(e->{
 			
-			Boolean regis = UserController.addUser(usernameInput.getText(), emailInput.getText(), passwordInput.getText(), confirmPasswordInput.getText(), roleSelectionGroup.selectedToggleProperty().getName());
+			Boolean regis = userController.addUser(usernameInput.getText(), emailInput.getText(), passwordInput.getText(), confirmPasswordInput.getText(), roleSelectionGroup.selectedToggleProperty().getName());
 			
 			if(regis == true) {
 				resultLabel.setText("Register Success");
@@ -90,9 +78,10 @@ public class RegisterPage {
 		
 		usernameInput = new TextField();
 		emailInput = new TextField();
-		passwordInput = new TextField();
+		passwordInput = new PasswordField();
 		confirmPasswordInput = new TextField();
 		
+		roleSelectionGroup = new ToggleGroup();
 		vendorRadioButton = new RadioButton("Vendor");
 		vendorRadioButton.setToggleGroup(roleSelectionGroup);
 		vendorRadioButton.setSelected(true);
@@ -101,7 +90,6 @@ public class RegisterPage {
 		
 		submitButton = new Button("Register");
 		
-		gridPane.add(scrollPane, 1, 0);
 		gridPane.add(label, 1, 1);
 		gridPane.add(usernameLabel, 1, 3);
 		gridPane.add(usernameInput, 2, 3);
@@ -125,13 +113,20 @@ public class RegisterPage {
 		scene = new Scene(borderPane, 600, 600);
 	}
 	
-	public RegisterPage(Stage stage) {
-			
+	@Override
+	public void start(Stage stage) throws Exception {
+		
 		this.stage = stage;
+		
 		initialize();
 		
 		this.stage.setScene(scene);
 		this.stage.setTitle("Register");
 		this.stage.show();
 	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 }
