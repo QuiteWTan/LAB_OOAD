@@ -1,7 +1,6 @@
 package view;
 
 import controller.UserController;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class RegisterPage extends Application{
+public class RegisterPage{
 	
 	UserController userController = new UserController();
 
@@ -43,6 +42,10 @@ public class RegisterPage extends Application{
 		
 		menuBar = new MenuBar();
 		menu = new Menu("Menu");
+		menuItemLogin = new MenuItem("Login");
+		menuBar.getMenus().add(menu);
+		menu.getItems().add(menuItemLogin);
+		borderPane.setTop(menuBar);
 		
 	}
 	
@@ -60,6 +63,15 @@ public class RegisterPage extends Application{
 				
 			}
 			
+		});
+		
+		menuItemLogin.setOnAction(e->{
+			try {
+				new LoginPage().start(stage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		});
 	}
 	
@@ -104,8 +116,6 @@ public class RegisterPage extends Application{
 		gridPane.add(influencerRadioButton, 1, 9);
 		gridPane.add(submitButton, 1, 10);
 		
-		action();
-		
 		setMenu();
 		
 		borderPane.setCenter(gridPane);
@@ -113,20 +123,15 @@ public class RegisterPage extends Application{
 		scene = new Scene(borderPane, 600, 600);
 	}
 	
-	@Override
-	public void start(Stage stage) throws Exception {
-		
+	public RegisterPage(Stage stage) {
 		this.stage = stage;
 		
 		initialize();
+		action();
 		
 		this.stage.setScene(scene);
 		this.stage.setTitle("Register");
 		this.stage.show();
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
 	}
 
 }
