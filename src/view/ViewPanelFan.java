@@ -16,7 +16,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import model.PanelHeader;
+import model.object.PanelHeader;
 
 public class ViewPanelFan extends BorderPane {
 	

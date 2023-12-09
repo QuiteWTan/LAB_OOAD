@@ -1,7 +1,4 @@
 module OOAD_LAB {
-	opens controller;
-	opens database;
-	opens model;
 	opens view;
 		
 	requires javafx.graphics;

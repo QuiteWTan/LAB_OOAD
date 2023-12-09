@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.util.*;
-import model.PanelHeader;
+import model.object.PanelHeader;
 
 public class PanelCellFactory implements Callback<ListView<PanelHeader>, ListCell<PanelHeader>> {
 

@@ -49,32 +49,6 @@ public class RegisterPage{
 		
 	}
 	
-	private void action() {
-		
-		submitButton.setOnMouseClicked(e->{
-			
-			Boolean regis = userController.addUser(usernameInput.getText(), emailInput.getText(), passwordInput.getText(), confirmPasswordInput.getText(), roleSelectionGroup.selectedToggleProperty().getName());
-			
-			if(regis == true) {
-				resultLabel.setText("Register Success");
-				
-			} else {
-				resultLabel.setText("Register Failed");
-				
-			}
-			
-		});
-		
-		menuItemLogin.setOnAction(e->{
-			try {
-				new LoginPage().start(stage);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-	}
-	
 	private void initialize() {
 		
 		borderPane = new BorderPane();
@@ -127,7 +101,6 @@ public class RegisterPage{
 		this.stage = stage;
 		
 		initialize();
-		action();
 		
 		this.stage.setScene(scene);
 		this.stage.setTitle("Register");

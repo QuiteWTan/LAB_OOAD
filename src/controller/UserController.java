@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import database.Connect;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import model.User;
-import database.UserModel;
+import model.database.UserModel;
+import model.object.User;
 import view.ViewAccount;
 
 public class UserController {

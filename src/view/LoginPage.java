@@ -46,27 +46,6 @@ public class LoginPage extends Application {
 
 	}
 
-	private void action() {
-
-//		submitButton.setOnMouseClicked(e->{
-//			
-//			Boolean regis = userController.addUser(usernameInput.getText(), emailInput.getText(), passwordInput.getText(), confirmPasswordInput.getText(), roleSelectionGroup.selectedToggleProperty().getName());
-//			
-//			if(regis == true) {
-//				resultLabel.setText("Register Success");
-//				
-//			} else {
-//				resultLabel.setText("Register Failed");
-//				
-//			}
-//			
-//		});
-
-		menuItemRegister.setOnAction(e -> {
-			new RegisterPage(stage);
-		});
-	}
-
 	private void initialize() {
 
 		borderPane = new BorderPane();
@@ -101,7 +80,6 @@ public class LoginPage extends Application {
 		this.stage = stage;
 
 		initialize();
-		action();
 
 		this.stage.setScene(scene);
 		this.stage.setTitle("Login");

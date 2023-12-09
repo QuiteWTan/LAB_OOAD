@@ -1,10 +1,11 @@
-package database;
+package model.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.User;
+import database.Connect;
+import model.object.User;
 
 public class UserModel {
 

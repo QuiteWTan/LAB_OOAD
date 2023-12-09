@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.scene.Scene;
-import model.PanelHeader;
-import model.User;
+import model.object.PanelHeader;
+import model.object.User;
 import view.ViewAccount;
 import view.ViewPanelFan;
 

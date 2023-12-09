@@ -19,7 +19,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import model.User;
+import model.object.User;
 
 public class ViewAccount extends BorderPane {
 	
