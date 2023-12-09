@@ -1,6 +1,7 @@
 package view;
 
 import controller.UserController;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +13,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -20,91 +20,90 @@ public class RegisterPage{
 	
 	UserController userController = new UserController();
 
-	Stage stage;
-	Scene scene;
-	
-	VBox vBox;
-	GridPane gridPane;
-	BorderPane borderPane;
-	
-	Label label, usernameLabel, emailLabel, passwordLabel, confirmPasswordLabel, roleLabel, resultLabel;
-	TextField usernameInput, emailInput, confirmPasswordInput;
-	PasswordField passwordInput;
-	RadioButton vendorRadioButton, influencerRadioButton;
-	ToggleGroup roleSelectionGroup;
-	Button submitButton;
-	
-	MenuBar menuBar;
-	Menu menu;
-	MenuItem menuItemLogin;
-	
-	private void setMenu() {
+	public class RegisterVar {
+		//Scene
+		Scene registerScene;
+		BorderPane mainContainer = new BorderPane();
+		VBox mainBox = new VBox();
+		VBox registerContainer = new VBox(16);
 		
-		menuBar = new MenuBar();
-		menu = new Menu("Menu");
-		menuItemLogin = new MenuItem("Login");
-		menuBar.getMenus().add(menu);
-		menu.getItems().add(menuItemLogin);
-		borderPane.setTop(menuBar);
+		MenuBar menuBar = new MenuBar();
+		Menu menu = new Menu("Menu");
+		public MenuItem menuItemLogin = new MenuItem("Login");
+		
+		//Label
+		Label title = new Label("Register");
+		Label usernameLabel = new Label("Username");
+		Label emailLabel = new Label("Email");
+		Label passLabel = new Label("Password"); 
+		Label cfPassLabel = new Label("Confirm Password");
+		Label roleLabel = new Label("Role");
+		Label resultLabel = new Label();
+		Label error = new Label();
+		
+		//Input Field
+		public TextField usernameInput = new TextField();
+		public TextField emailInput = new TextField();
+		public PasswordField passInput = new PasswordField();
+		public PasswordField cfPasswordInput = new PasswordField();
+		
+		ToggleGroup roleSelectionGroup = new ToggleGroup();
+		public RadioButton vendorRadioButton = new RadioButton("Vendor");
+		public RadioButton influencerRadioButton = new RadioButton("Influencer");
+		
+		//Button
+		public Button submitButton = new Button("Register");
 		
 	}
 	
-	private void initialize() {
+	private void initialize(RegisterVar var) {
+		// Menu
+		var.menuBar.getMenus().add(var.menu);
+		var.menu.getItems().add(var.menuItemLogin);
 		
-		borderPane = new BorderPane();
-		gridPane = new GridPane();
+		//Body
+		var.registerContainer.getChildren().addAll(
+				var.title, 
+				var.usernameLabel, var.usernameInput, 
+				var.emailLabel, var.emailInput, 
+				var.passLabel, var.passInput, 
+				var.cfPassLabel, var.cfPasswordInput, 
+				var.roleLabel, var.vendorRadioButton, var.influencerRadioButton, 
+				var.submitButton, 
+				var.error, var.resultLabel
+				);
 		
-		label = new Label("RegisterForm");
-		usernameLabel = new Label("Username: ");
-		emailLabel = new Label("Email: ");
-		passwordLabel = new Label("Password: ");
-		confirmPasswordLabel = new Label("Confirm Password: ");
-		roleLabel = new Label("Role: ");
-		resultLabel = new Label();
+		var.vendorRadioButton.setToggleGroup(var.roleSelectionGroup);
+		var.vendorRadioButton.setSelected(true);
+		var.influencerRadioButton.setToggleGroup(var.roleSelectionGroup);
 		
-		usernameInput = new TextField();
-		emailInput = new TextField();
-		passwordInput = new PasswordField();
-		confirmPasswordInput = new TextField();
-		
-		roleSelectionGroup = new ToggleGroup();
-		vendorRadioButton = new RadioButton("Vendor");
-		vendorRadioButton.setToggleGroup(roleSelectionGroup);
-		vendorRadioButton.setSelected(true);
-		influencerRadioButton = new RadioButton("Influencer");
-		influencerRadioButton.setToggleGroup(roleSelectionGroup);
-		
-		submitButton = new Button("Register");
-		
-		gridPane.add(label, 1, 1);
-		gridPane.add(usernameLabel, 1, 3);
-		gridPane.add(usernameInput, 2, 3);
-		gridPane.add(emailLabel, 1, 4);
-		gridPane.add(emailInput, 2, 4);
-		gridPane.add(passwordLabel, 1, 5);
-		gridPane.add(passwordInput, 2, 5);
-		gridPane.add(confirmPasswordLabel, 1, 6);
-		gridPane.add(confirmPasswordInput, 2, 6);
-		gridPane.add(roleLabel, 1, 7);
-		gridPane.add(vendorRadioButton, 1, 8);
-		gridPane.add(influencerRadioButton, 1, 9);
-		gridPane.add(submitButton, 1, 10);
-		
-		setMenu();
-		
-		borderPane.setCenter(gridPane);
-		
-		scene = new Scene(borderPane, 600, 600);
+		//Setup
+		var.mainBox.getChildren().add(var.registerContainer);
+
+		var.mainContainer.setTop(var.menuBar);
+		var.mainContainer.setCenter(var.mainBox);
+
+		var.registerScene = new Scene(var.mainContainer, 800, 600);
+	}
+	
+	private void style(RegisterVar var) {
+
+		var.mainBox.setAlignment(Pos.CENTER);
+		var.registerContainer.setMaxWidth(400);
+		var.error.setStyle("-fx-text-fill: RED");
+		var.title.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
 	}
 	
 	public RegisterPage(Stage stage) {
-		this.stage = stage;
 		
-		initialize();
+		RegisterVar var = new RegisterVar();
 		
-		this.stage.setScene(scene);
-		this.stage.setTitle("Register");
-		this.stage.show();
+		initialize(var);
+		style(var);
+		userController.registerHandler(var, stage);
+		
+		stage.setScene(var.registerScene);
+		stage.setTitle("Register");
 	}
 
 }

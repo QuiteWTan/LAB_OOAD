@@ -5,13 +5,52 @@ import java.util.ArrayList;
 import database.Connect;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import model.database.UserModel;
 import model.object.User;
+import view.LoginPage;
+import view.LoginPage.LoginVar;
+import view.RegisterPage;
+import view.RegisterPage.RegisterVar;
 import view.ViewAccount;
 
 public class UserController {
 	
 	UserModel userModel = new UserModel();
+	
+	//view handler
+	
+	public void navigateLogin(Stage stage) {
+		try {
+			new LoginPage().start(stage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+	}
+	
+	public void navigateRegister(Stage stage) {
+		new RegisterPage(stage);
+	}
+	
+	public void loginHandler(LoginVar var, Stage stage) {
+		
+		var.menuItemRegister.setOnAction(e->{
+			navigateRegister(stage);
+		});
+		
+	}
+	
+	public void registerHandler(RegisterVar var, Stage stage) {
+
+		var.menuItemLogin.setOnAction(e -> {
+			navigateLogin(stage);
+		});
+
+	}
+	
+	
+	//Validation logic
 	
 	public Boolean validateUsername(String username) {
 		
