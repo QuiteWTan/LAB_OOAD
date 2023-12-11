@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import database.Connect;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 import model.database.UserModel;
 import model.object.User;
@@ -46,6 +47,19 @@ public class UserController {
 		var.menuItemLogin.setOnAction(e -> {
 			navigateLogin(stage);
 		});
+		
+		var.submitButton.setOnMouseClicked(e->{
+			
+			String username = var.usernameInput.getText().toString();
+			String email = var.emailInput.getText().toString();
+			String password = var.passInput.getText().toString();
+			String confirmPassword = var.cfPasswordInput.getText().toString();
+			RadioButton selectedRole = (RadioButton) var.roleSelectionGroup.getSelectedToggle();
+			String role = selectedRole.getText().toString();
+			
+			this.addUser(username, email, password, confirmPassword, role);
+			navigateLogin(stage);
+		});
 
 	}
 	
@@ -54,7 +68,7 @@ public class UserController {
 	
 	public Boolean validateUsername(String username) {
 		
-		if(username.isBlank()) {
+		if(username.isEmpty()) {
 			return false;
 			
 		} else if(!userModel.searchExistingUsername(username)) {
@@ -114,9 +128,9 @@ public class UserController {
 //		
 //		// Dummy User
 //		this.currUser = new User(1, "admin", "admin@gmail.com", "admin", "Admin");
-////		currUser = new User(1, "user1", "user1@gmail.com", "user1", "User");
-//		this.isAdmin = currUser.getRole().equals("Admin") ? true : false;
-//		
+////		currUser = newcurrUser.getRole().equals("Admin") ? true : false;
+//		 User(1, "user1", "user1@gmail.com", "user1", "User");
+//		this.isAdmin = 
 //		this.users = new ArrayList<>();
 //	}
 //	

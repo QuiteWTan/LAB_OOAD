@@ -47,7 +47,7 @@ public class RegisterPage{
 		public PasswordField passInput = new PasswordField();
 		public PasswordField cfPasswordInput = new PasswordField();
 		
-		ToggleGroup roleSelectionGroup = new ToggleGroup();
+		public ToggleGroup roleSelectionGroup = new ToggleGroup();
 		public RadioButton vendorRadioButton = new RadioButton("Vendor");
 		public RadioButton influencerRadioButton = new RadioButton("Influencer");
 		
