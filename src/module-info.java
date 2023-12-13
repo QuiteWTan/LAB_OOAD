@@ -1,5 +1,6 @@
 module OOAD_LAB {
 	opens view;
+	opens main;
 		
 	requires javafx.graphics;
 	requires javafx.controls;

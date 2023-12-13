@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LoginPage extends Application {
+public class LoginPage {
 
 	UserController userController = new UserController();
 
@@ -79,9 +79,7 @@ public class LoginPage extends Application {
 		var.title.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
 	}
 
-	@Override
-	public void start(Stage stage) throws Exception {
-
+	public LoginPage(Stage stage) {
 		LoginVar var = new LoginVar();
 		
 		initialize(var);
@@ -93,8 +91,24 @@ public class LoginPage extends Application {
 		stage.show();
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+	
+	
+//	@Override
+//	public void start(Stage stage) throws Exception {
+//
+//		LoginVar var = new LoginVar();
+//		
+//		initialize(var);
+//		style(var);
+//		userController.loginHandler(var, stage);
+//
+//		stage.setScene(var.loginScene);
+//		stage.setTitle("Login");
+//		stage.show();
+//	}
+//
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 }

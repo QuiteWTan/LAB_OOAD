@@ -22,12 +22,7 @@ public class UserController {
 	//view handler
 	
 	public void navigateLogin(Stage stage) {
-		try {
-			new LoginPage().start(stage);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
+		new LoginPage(stage);
 	}
 	
 	public void navigateRegister(Stage stage) {
