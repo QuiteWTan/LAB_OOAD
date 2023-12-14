@@ -13,6 +13,8 @@ import view.LoginPage;
 import view.LoginPage.LoginVar;
 import view.RegisterPage;
 import view.RegisterPage.RegisterVar;
+import view.FanHomePage;
+import view.FanHomePage.HomeVar;
 import view.ViewAccount;
 
 public class UserController {
@@ -29,11 +31,23 @@ public class UserController {
 		new RegisterPage(stage);
 	}
 	
+	public void navigateHome(Stage stage) {
+		new FanHomePage(stage);
+	}
+	
 	public void loginHandler(LoginVar var, Stage stage) {
 		
 		var.menuItemRegister.setOnAction(e->{
 			navigateRegister(stage);
 		});
+		
+		var.submitButton.setOnMouseClicked(e->{
+			navigateHome(stage);
+		});
+		
+	}
+	
+	public void HomePageHandler(HomeVar var, Stage stage) {
 		
 	}
 	

@@ -8,7 +8,7 @@ import database.Connect;
 
 public class PanelHeader {
 	private Integer panelId;
-	private String userId;
+	private Integer userId;
 	private String panelTitle;
 	private String panelDescription;
 	private String location;
@@ -16,7 +16,7 @@ public class PanelHeader {
 	private String endTime;
 	private Boolean isFinished;
 	
-	public PanelHeader(Integer panelId, String userId, String panelTitle, String panelDescription, String location,
+	public PanelHeader(Integer panelId, Integer userId, String panelTitle, String panelDescription, String location,
 			String startTime, String endTime, Boolean isFinished) {
 		super();
 		this.panelId = panelId;
@@ -37,11 +37,11 @@ public class PanelHeader {
 		this.panelId = panelId;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -92,7 +92,7 @@ public class PanelHeader {
 	public void setIsFinished(Boolean isFinished) {
 		this.isFinished = isFinished;
 	}
-	
+
 	public static ArrayList<PanelHeader> getAllPanels() throws SQLException {
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();
@@ -103,7 +103,7 @@ public class PanelHeader {
 		try {
 			while(rs.next()) {
 				Integer panelId = rs.getInt("panelId");
-				String userId = rs.getString("userId");
+				Integer userId = rs.getInt("userId");
 				String panelTitle = rs.getString("panelTitle");
 				String panelDescription = rs.getString("panelDescription");
 				String location = rs.getString("location");
@@ -131,7 +131,7 @@ public class PanelHeader {
 		try {
 			while(rs.next()) {
 				Integer panelIds = rs.getInt("panelId");
-				String userId = rs.getString("userId");
+				Integer userId = rs.getInt("userId");
 				String panelTitle = rs.getString("panelTitle");
 				String panelDescription = rs.getString("panelDescription");
 				String location = rs.getString("location");
@@ -175,8 +175,8 @@ public class PanelHeader {
 		
 		try {
 			while(rs.next()) {
-				Integer panelId = rs.getInt("panelId");
-				String userId = rs.getString("userId");
+				Integer panelIds = rs.getInt("panelId");
+				Integer userId = rs.getInt("userId");
 				String panelTitle = rs.getString("panelTitle");
 				String panelDescription = rs.getString("panelDescription");
 				String location = rs.getString("location");
@@ -203,8 +203,8 @@ public class PanelHeader {
 		
 		try {
 			while(rs.next()) {
-				Integer panelId = rs.getInt("panelId");
-				String userId = rs.getString("userId");
+				Integer panelIds = rs.getInt("panelId");
+				Integer userId = rs.getInt("userId");
 				String panelTitle = rs.getString("panelTitle");
 				String panelDescription = rs.getString("panelDescription");
 				String location = rs.getString("location");
@@ -233,8 +233,8 @@ public class PanelHeader {
 		
 		try {
 			while(rs.next()) {
-				Integer panelId = rs.getInt("panelId");
-				String userIds = rs.getString("userId");
+				Integer panelIds = rs.getInt("panelId");
+				Integer userIds = rs.getInt("userId");
 				String panelTitle = rs.getString("panelTitle");
 				String panelDescription = rs.getString("panelDescription");
 				String location = rs.getString("location");
