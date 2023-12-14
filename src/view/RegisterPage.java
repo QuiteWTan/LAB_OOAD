@@ -32,14 +32,14 @@ public class RegisterPage{
 		public MenuItem menuItemLogin = new MenuItem("Login");
 		
 		//Label
-		Label title = new Label("Register");
+		Label pageTitle = new Label("Register");
 		Label usernameLabel = new Label("Username");
 		Label emailLabel = new Label("Email");
 		Label passLabel = new Label("Password"); 
 		Label cfPassLabel = new Label("Confirm Password");
 		Label roleLabel = new Label("Role");
-		Label resultLabel = new Label();
-		Label error = new Label();
+		public Label resultLabel = new Label();
+		public Label error = new Label();
 		
 		//Input Field
 		public TextField usernameInput = new TextField();
@@ -50,6 +50,7 @@ public class RegisterPage{
 		public ToggleGroup roleSelectionGroup = new ToggleGroup();
 		public RadioButton vendorRadioButton = new RadioButton("Vendor");
 		public RadioButton influencerRadioButton = new RadioButton("Influencer");
+		public RadioButton fanRadioButton = new RadioButton("Fan");
 		
 		//Button
 		public Button submitButton = new Button("Register");
@@ -63,7 +64,7 @@ public class RegisterPage{
 		
 		//Body
 		var.registerContainer.getChildren().addAll(
-				var.title, 
+				var.pageTitle, 
 				var.usernameLabel, var.usernameInput, 
 				var.emailLabel, var.emailInput, 
 				var.passLabel, var.passInput, 
@@ -76,6 +77,7 @@ public class RegisterPage{
 		var.vendorRadioButton.setToggleGroup(var.roleSelectionGroup);
 		var.vendorRadioButton.setSelected(true);
 		var.influencerRadioButton.setToggleGroup(var.roleSelectionGroup);
+		var.fanRadioButton.setToggleGroup(var.roleSelectionGroup);
 		
 		//Setup
 		var.mainBox.getChildren().add(var.registerContainer);
@@ -91,7 +93,7 @@ public class RegisterPage{
 		var.mainBox.setAlignment(Pos.CENTER);
 		var.registerContainer.setMaxWidth(400);
 		var.error.setStyle("-fx-text-fill: RED");
-		var.title.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
+		var.pageTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
 	}
 	
 	public RegisterPage(Stage stage) {

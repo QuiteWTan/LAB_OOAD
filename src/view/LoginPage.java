@@ -1,7 +1,6 @@
 package view;
 
 import controller.UserController;
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,7 +11,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -33,10 +31,10 @@ public class LoginPage {
 		public MenuItem menuItemRegister = new MenuItem("Register");
 		
 		//Label
-		Label title = new Label("Login");
+		Label pageTitle = new Label("Login");
 		Label emailLabel = new Label("Email");
 		Label passLabel = new Label("Password");
-		Label error = new Label();
+		public Label error = new Label();
 		
 		//Input Field
 		public TextField emailInput = new TextField();
@@ -55,7 +53,7 @@ public class LoginPage {
 		
 		//Body
 		var.loginContainer.getChildren().addAll(
-				var.title, 
+				var.pageTitle, 
 				var.emailLabel, var.emailInput, 
 				var.passLabel, var.passInput, 
 				var.submitButton, 
@@ -76,7 +74,7 @@ public class LoginPage {
 		var.mainBox.setAlignment(Pos.CENTER);
 		var.loginContainer.setMaxWidth(400);
 		var.error.setStyle("-fx-text-fill: RED");
-		var.title.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
+		var.pageTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
 	}
 
 	public LoginPage(Stage stage) {
@@ -90,25 +88,5 @@ public class LoginPage {
 		stage.setTitle("Login");
 		stage.show();
 	}
-
-	
-	
-//	@Override
-//	public void start(Stage stage) throws Exception {
-//
-//		LoginVar var = new LoginVar();
-//		
-//		initialize(var);
-//		style(var);
-//		userController.loginHandler(var, stage);
-//
-//		stage.setScene(var.loginScene);
-//		stage.setTitle("Login");
-//		stage.show();
-//	}
-//
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
 
 }
