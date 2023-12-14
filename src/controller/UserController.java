@@ -9,6 +9,7 @@ import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 import model.database.UserModel;
 import model.object.User;
+import view.InfluencerHomePage;
 import view.LoginPage;
 import view.LoginPage.LoginVar;
 import view.RegisterPage;
@@ -35,11 +36,56 @@ public class UserController {
 		new FanHomePage(stage);
 	}
 	
+	public void navigateVendor(Stage stage) {
+		
+	}
+	
+	public void navigateInfluencer(Stage stage) {
+		new InfluencerHomePage(stage);
+	}
+	
+	
 	public void loginHandler(LoginVar var, Stage stage) {
 		
 		var.menuItemRegister.setOnAction(e->{
 			navigateRegister(stage);
 		});
+		
+		var.submitButton.setOnMouseClicked(e -> {
+			
+			if(var.emailInput.getText().isEmpty()) {
+				var.error.setText("Email must be filled");
+				return;
+				
+			} else if(var.passInput.getText().isEmpty()) {
+				var.error.setText("Password must be filled");
+				return;
+				
+			}
+			
+			String email = var.emailInput.getText().toString();
+			String password = var.passInput.getText().toString();
+			
+			User user = this.getUserByEmail(email);
+			
+			if(user != null) {
+				
+				if(user.getPassword().equals(password) && user.getRole().equals("Vendor")) {
+					navigateVendor(stage);
+					
+				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
+					navigateInfluencer(stage);
+					
+				} else {
+					var.error.setText("The password is wrong");
+				}
+				
+			} else {
+				var.error.setText("Account doesn't exist");
+				
+			}
+		});
+		
 		
 		var.submitButton.setOnMouseClicked(e->{
 			navigateHome(stage);
@@ -66,8 +112,11 @@ public class UserController {
 			RadioButton selectedRole = (RadioButton) var.roleSelectionGroup.getSelectedToggle();
 			String role = selectedRole.getText().toString();
 			
-			this.addUser(username, email, password, confirmPassword, role);
-			navigateLogin(stage);
+			Boolean success = this.addUser(var, username, email, password, confirmPassword, role);
+			
+			if(success == true) {
+				navigateLogin(stage);
+			}
 		});
 
 	}
@@ -75,12 +124,14 @@ public class UserController {
 	
 	//Validation logic
 	
-	public Boolean validateUsername(String username) {
+	public Boolean validateUsername(RegisterVar var, String username) {
 		
 		if(username.isEmpty()) {
+			var.error.setText("username must be filled");
 			return false;
 			
 		} else if(!userModel.searchExistingUsername(username)) {
+			var.error.setText("username already exist");
 			return false;
 			
 		}
@@ -88,32 +139,67 @@ public class UserController {
 		return true;
 	}
 	
-	public Boolean validateEmail(String email) {
+	public Boolean validateEmail(RegisterVar var,  String email) {
 		
-		if(!email.contains("@") || !userModel.searchExistingEmail(email)) {
+		if(!email.contains("@")) {
+			var.error.setText("email format is wrong");
 			return false;
 			
+		} else if (!userModel.searchExistingEmail(email)) {
+			var.error.setText("email already exist");
+			return false;
 		}
 		
 		return true;
 		
 	}
 	
-	public Boolean validatePassword(String password, String confirmPassword) {
+	public Boolean hasChar(String str) {
+		for (char ch : str.toCharArray()) {
+			if(Character.isLetter(ch)) {
+				return true;
+			}
+			
+		}
 		
-		if(password.length() < 6 || !password.matches("^[a-zA-Z0-9]+$") || !password.equals(confirmPassword)){
+		return false;
+	}
+	
+	public Boolean hasDigit(String str) {
+		for (char ch : str.toCharArray()) {
+			if(Character.isDigit(ch)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public Boolean validatePassword(RegisterVar var,  String password, String confirmPassword) {
+		
+		if(password.length() < 6){
+			var.error.setText("password must be 6 or more characters long");
 			return false;
 			
+		} else if (!hasChar(password) || !hasDigit(password)) {
+			var.error.setText("password must be alphanumeric");
+			return false;
+			
+		} else if (!password.equals(confirmPassword)) {
+			var.error.setText("confirm password doesn't match");
+			return false;
 		}
 		
 		return true;
 	}
 	
-	public Boolean addUser(String username, String email, String password, String confirmPassword, String role) {
+	//Model function
+	
+	public Boolean addUser(RegisterVar var,  String username, String email, String password, String confirmPassword, String role) {
 		
-	    Boolean usernameValid = validateUsername(username);
-	    Boolean emailValid = validateEmail(email);
-	    Boolean passwordValid = validatePassword(password, confirmPassword);
+	    Boolean usernameValid = validateUsername(var, username);
+	    Boolean emailValid = validateEmail(var, email);
+	    Boolean passwordValid = validatePassword(var, password, confirmPassword);
 	    
 	    if(usernameValid && emailValid && passwordValid) {
 	    	
@@ -124,6 +210,12 @@ public class UserController {
 	    
 	    return false;
   
+	}
+	
+	public User getUserByEmail(String email) {
+		
+		return userModel.getUserByEmail(email);
+		
 	}
 	
 //	private User currUser;
