@@ -76,19 +76,15 @@ public class UserController {
 				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
 					navigateInfluencer(stage);
 					
-				} else {
+				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
+					navigateHome(stage);
+				}else {
 					var.error.setText("The password is wrong");
 				}
 				
 			} else {
 				var.error.setText("Account doesn't exist");
-				
 			}
-		});
-		
-		
-		var.submitButton.setOnMouseClicked(e->{
-			navigateHome(stage);
 		});
 		
 	}
