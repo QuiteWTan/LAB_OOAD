@@ -9,7 +9,7 @@ import model.object.PanelHeader;
 
 public class PanelHeaderModel {
 	
-	public ArrayList<PanelHeader> getAllPanels() throws SQLException {
+	public ArrayList<PanelHeader> getAllPanels(){
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
@@ -38,7 +38,7 @@ public class PanelHeaderModel {
 		
 	}
 	
-	public PanelHeader getPanelById(Integer panelId) throws SQLException {
+	public PanelHeader getPanelById(Integer panelId){
 		Connect db = Connect.getInstance();		
 		
 		String query = String.format("SELECT * FROM panelHeaders WHERE panelId = %d", panelId);
@@ -55,7 +55,7 @@ public class PanelHeaderModel {
 				String endTime = rs.getString("endTime");
 				Boolean isFinished = rs.getBoolean("isFinished");
 				
-				return new PanelHeader(panelId, userId, panelTitle, panelDescription, location, startTime, endTime, isFinished);
+				return new PanelHeader(panelIds, userId, panelTitle, panelDescription, location, startTime, endTime, isFinished);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -140,7 +140,7 @@ public class PanelHeaderModel {
 	
 	//Delete panel by influence
 	
-	public PanelHeader getPanelByInfluencer(Integer userId) {
+	public ArrayList<PanelHeader> getAllPanelByInfluencer(Integer userId) {
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
@@ -158,8 +158,11 @@ public class PanelHeaderModel {
 				String endTime = rs.getString("endTime");
 				Boolean isFinished = rs.getBoolean("isFinished");
 				
-				return new PanelHeader(panelId, userIds, panelTitle, panelDescription, location, startTime, endTime, isFinished);
+				PanelList.add(new PanelHeader(panelId, userIds, panelTitle, panelDescription, location, startTime, endTime, isFinished));
 			}
+			
+			return PanelList;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

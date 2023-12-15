@@ -40,8 +40,8 @@ public class UserController {
 		
 	}
 	
-	public void navigateInfluencer(Stage stage) {
-		new InfluencerHomePage(stage);
+	public void navigateInfluencer(Stage stage, User user) {
+		new InfluencerHomePage(stage, user);
 	}
 	
 	
@@ -74,7 +74,7 @@ public class UserController {
 					navigateVendor(stage);
 					
 				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
-					navigateInfluencer(stage);
+					navigateInfluencer(stage, user);
 					
 				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
 					navigateHome(stage);

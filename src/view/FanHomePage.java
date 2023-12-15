@@ -47,12 +47,7 @@ public class FanHomePage {
 		isFinished = new TableColumn<>("Panel Status");
 		table.getColumns().addAll(panelTitle, panelDescription, location, startTime, endTime, isFinished);
 		
-		try {
-			panelList = pd.getAllPanels();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		panelList = pd.getAllPanels();
 		
 		for (PanelHeader panel : panelList) {
 			table.getItems().add(panel);
