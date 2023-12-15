@@ -28,11 +28,8 @@ public class InfluencerHomePage {
 
 		//Table
 		TableView<PanelHeader> table = new TableView<PanelHeader>();
+		TableColumn<PanelHeader, Integer> idCol = new TableColumn<>("Id");
 		TableColumn<PanelHeader, String> titleCol = new TableColumn<>("Title");
-//		TableColumn<PanelHeader, String> desc = new TableColumn<>()"";
-//		TableColumn<PanelHeader, String> location;
-//		TableColumn<PanelHeader, String> startTime;
-//		TableColumn<PanelHeader, String> endTime;
 		TableColumn<PanelHeader, String> statusCol = new TableColumn<>("Status");
 		
 		// Label
@@ -58,7 +55,7 @@ public class InfluencerHomePage {
 	public void initialize(InfluencerHomeVar var) {
 		
 		//Table
-		var.table.getColumns().addAll(var.titleCol, var.statusCol);
+		var.table.getColumns().addAll(var.idCol, var.titleCol, var.statusCol);
 		
 		
 		//Body
@@ -87,6 +84,13 @@ public class InfluencerHomePage {
 
 		var.mainBox.setAlignment(Pos.CENTER);
 		var.formContainer.setMaxWidth(400);
+		
+		var.tableContainer.setAlignment(Pos.CENTER);
+		var.table.setMaxWidth(750);
+		var.idCol.setPrefWidth(50);
+		var.titleCol.setPrefWidth(350);
+		var.statusCol.setPrefWidth(350);
+		
 		var.error.setStyle("-fx-text-fill: RED");
 		var.pageTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
 	}
@@ -99,7 +103,7 @@ public class InfluencerHomePage {
 		
 		stage.setScene(var.influencerHomeScene);
 		stage.setTitle("Login");
-		stage.show();
+		stage.setResizable(false);
 		
 	}
 

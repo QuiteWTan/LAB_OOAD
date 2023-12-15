@@ -86,7 +86,7 @@ public class LoginPage {
 
 		stage.setScene(var.loginScene);
 		stage.setTitle("Login");
-		stage.show();
+		stage.setResizable(false);
 	}
 
 }

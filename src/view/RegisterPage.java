@@ -106,6 +106,7 @@ public class RegisterPage{
 		
 		stage.setScene(var.registerScene);
 		stage.setTitle("Register");
+		stage.setResizable(false);
 	}
 
 }
