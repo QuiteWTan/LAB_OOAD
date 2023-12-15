@@ -22,4 +22,9 @@ public class PanelController {
 		return ph.getAllPanelByInfluencer(userId);
 	}
 	
+	public void finishPanel(Integer panelId) {
+		
+		ph.finishPanel(panelId);
+	}
+	
 }

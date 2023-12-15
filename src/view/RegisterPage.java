@@ -24,8 +24,8 @@ public class RegisterPage{
 		//Scene
 		Scene registerScene;
 		BorderPane mainContainer = new BorderPane();
-		VBox mainBox = new VBox();
-		VBox registerContainer = new VBox(16);
+		VBox mainBox = new VBox(16);
+		VBox registerContainer = new VBox(8);
 		
 		MenuBar menuBar = new MenuBar();
 		Menu menu = new Menu("Menu");
@@ -64,7 +64,6 @@ public class RegisterPage{
 		
 		//Body
 		var.registerContainer.getChildren().addAll(
-				var.pageTitle, 
 				var.usernameLabel, var.usernameInput, 
 				var.emailLabel, var.emailInput, 
 				var.passLabel, var.passInput, 
@@ -80,7 +79,7 @@ public class RegisterPage{
 		var.fanRadioButton.setToggleGroup(var.roleSelectionGroup);
 		
 		//Setup
-		var.mainBox.getChildren().add(var.registerContainer);
+		var.mainBox.getChildren().addAll(var.pageTitle,  var.registerContainer);
 
 		var.mainContainer.setTop(var.menuBar);
 		var.mainContainer.setCenter(var.mainBox);
