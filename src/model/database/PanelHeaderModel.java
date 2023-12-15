@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import database.Connect;
 import model.object.PanelHeader;
 
-public class PanelModel {
+public class PanelHeaderModel {
+	
 	public ArrayList<PanelHeader> getAllPanels() throws SQLException {
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();

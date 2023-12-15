@@ -15,13 +15,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.database.PanelModel;
+import model.database.PanelHeaderModel;
 import model.object.PanelHeader;
 
 public class FanHomePage {
 	
 	UserController uc = new UserController();
-	PanelModel pd = new PanelModel();
+	PanelHeaderModel pd = new PanelHeaderModel();
 	
 	VBox contentBox;
 	TableView<PanelHeader> table;

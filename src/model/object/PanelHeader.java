@@ -1,11 +1,5 @@
 package model.object;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import database.Connect;
-
 public class PanelHeader {
 	private Integer panelId;
 	private Integer userId;
