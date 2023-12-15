@@ -53,38 +53,40 @@ public class UserController {
 		
 		var.submitButton.setOnMouseClicked(e -> {
 			
-			if(var.emailInput.getText().isEmpty()) {
-				var.error.setText("Email must be filled");
-				return;
-				
-			} else if(var.passInput.getText().isEmpty()) {
-				var.error.setText("Password must be filled");
-				return;
-				
-			}
+			navigateHome(stage);
 			
-			String email = var.emailInput.getText().toString();
-			String password = var.passInput.getText().toString();
-			
-			User user = this.getUserByEmail(email);
-			
-			if(user != null) {
-				
-				if(user.getPassword().equals(password) && user.getRole().equals("Vendor")) {
-					navigateVendor(stage);
-					
-				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
-					navigateInfluencer(stage, user);
-					
-				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
-					navigateHome(stage);
-				}else {
-					var.error.setText("The password is wrong");
-				}
-				
-			} else {
-				var.error.setText("Account doesn't exist");
-			}
+//			if(var.emailInput.getText().isEmpty()) {
+//				var.error.setText("Email must be filled");
+//				return;
+//				
+//			} else if(var.passInput.getText().isEmpty()) {
+//				var.error.setText("Password must be filled");
+//				return;
+//				
+//			}
+//			
+//			String email = var.emailInput.getText().toString();
+//			String password = var.passInput.getText().toString();
+//			
+//			User user = this.getUserByEmail(email);
+//			
+//			if(user != null) {
+//				
+//				if(user.getPassword().equals(password) && user.getRole().equals("Vendor")) {
+//					navigateVendor(stage);
+//					
+//				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
+//					navigateInfluencer(stage, user);
+//					
+//				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
+//					navigateHome(stage);
+//				}else {
+//					var.error.setText("The password is wrong");
+//				}
+//				
+//			} else {
+//				var.error.setText("Account doesn't exist");
+//			}
 		});
 		
 	}

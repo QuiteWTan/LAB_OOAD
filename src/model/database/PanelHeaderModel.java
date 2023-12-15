@@ -9,7 +9,7 @@ import model.object.PanelHeader;
 
 public class PanelHeaderModel {
 	
-	public ArrayList<PanelHeader> getAllPanels(){
+	public static ArrayList<PanelHeader> getAllPanels(){
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
