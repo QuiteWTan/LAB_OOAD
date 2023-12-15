@@ -74,7 +74,7 @@ public class PanelHeaderModel {
 	
 	//Set panel time
 	
-	public void finishPanel(Integer panelId) throws SQLException {
+	public void finishPanel(Integer panelId) {
 		Connect db = Connect.getInstance();
 		
 		String query = String.format("UPDATE panelHeaders SET isFinished = 1 WHERE panelId = %d", panelId);
@@ -82,7 +82,7 @@ public class PanelHeaderModel {
 		db.execute(query);
 	}
 	
-	public ArrayList<PanelHeader> getUnfinishedPanels() throws SQLException {
+	public ArrayList<PanelHeader> getUnfinishedPanels() {
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
@@ -110,7 +110,7 @@ public class PanelHeaderModel {
 		return PanelList;
 	}
 	
-	public ArrayList<PanelHeader> getFinishedPanels() throws SQLException {
+	public ArrayList<PanelHeader> getFinishedPanels() {
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		

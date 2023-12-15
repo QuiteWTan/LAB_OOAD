@@ -23,8 +23,8 @@ public class LoginPage {
 		//Scene
 		Scene loginScene;
 		BorderPane mainContainer = new BorderPane();
-		VBox mainBox = new VBox();
-		VBox loginContainer = new VBox(10);
+		VBox mainBox = new VBox(16);
+		VBox loginContainer = new VBox(8);
 
 		MenuBar menuBar = new MenuBar();
 		Menu menu = new Menu("Menu");
@@ -52,8 +52,7 @@ public class LoginPage {
 		var.menu.getItems().add(var.menuItemRegister);
 		
 		//Body
-		var.loginContainer.getChildren().addAll(
-				var.pageTitle, 
+		var.loginContainer.getChildren().addAll( 
 				var.emailLabel, var.emailInput, 
 				var.passLabel, var.passInput, 
 				var.submitButton, 
@@ -61,7 +60,7 @@ public class LoginPage {
 				);
 		
 		//Setup
-		var.mainBox.getChildren().add(var.loginContainer);
+		var.mainBox.getChildren().addAll(var.pageTitle, var.loginContainer);
 		
 		var.mainContainer.setTop(var.menuBar);
 		var.mainContainer.setCenter(var.mainBox);
