@@ -21,20 +21,20 @@ public class FanController {
 	}
 	
 	
-	public Scene showAllPanel() {
-		try {
-			this.panels = PanelHeader.getAllPanels();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		String titleString = "Panels";
-		ViewPanelFan view = new ViewPanelFan(this.panels, titleString);
-		
-        
-        return view.getViewScene();
-	}
+//	public Scene showAllPanel() {
+//		try {
+//			this.panels = PanelHeader.getAllPanels();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		String titleString = "Panels";
+//		ViewPanelFan view = new ViewPanelFan(this.panels, titleString);
+//		
+//        
+//        return view.getViewScene();
+//	}
 
 
 	public static void showDetails(Integer panelId, Integer userId) {

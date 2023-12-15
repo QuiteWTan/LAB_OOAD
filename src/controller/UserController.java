@@ -14,6 +14,8 @@ import view.LoginPage;
 import view.LoginPage.LoginVar;
 import view.RegisterPage;
 import view.RegisterPage.RegisterVar;
+import view.FanHomePage;
+import view.FanHomePage.HomeVar;
 import view.ViewAccount;
 
 public class UserController {
@@ -30,6 +32,10 @@ public class UserController {
 		new RegisterPage(stage);
 	}
 	
+	public void navigateHome(Stage stage) {
+		new FanHomePage(stage);
+	}
+	
 	public void navigateVendor(Stage stage) {
 		
 	}
@@ -37,6 +43,7 @@ public class UserController {
 	public void navigateInfluencer(Stage stage) {
 		new InfluencerHomePage(stage);
 	}
+	
 	
 	public void loginHandler(LoginVar var, Stage stage) {
 		
@@ -69,15 +76,20 @@ public class UserController {
 				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
 					navigateInfluencer(stage);
 					
-				} else {
+				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
+					navigateHome(stage);
+				}else {
 					var.error.setText("The password is wrong");
 				}
 				
 			} else {
 				var.error.setText("Account doesn't exist");
-				
 			}
 		});
+		
+	}
+	
+	public void HomePageHandler(HomeVar var, Stage stage) {
 		
 	}
 	
