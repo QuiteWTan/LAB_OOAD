@@ -3,12 +3,16 @@ package view;
 import java.util.ArrayList;
 
 import controller.PanelController;
+import controller.UserController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -26,6 +30,7 @@ import model.object.User;
 public class InfluencerHomePage {
 	
 	PanelController panelController = new PanelController();
+	UserController userController = new UserController();
 	
 	User influencer;
 	ArrayList<PanelHeader> panelList;
@@ -40,9 +45,9 @@ public class InfluencerHomePage {
 		VBox tableContainer = new VBox();
 		VBox formContainer = new VBox(8);
 
-//		MenuBar menuBar = new MenuBar();
-//		Menu menu = new Menu("Menu");
-//		public MenuItem menuItemLogout = new MenuItem("Login");
+		MenuBar menuBar = new MenuBar();
+		Menu menu = new Menu("Menu");
+		public MenuItem menuItemLogOut = new MenuItem("Log Out");
 
 		//Table
 		TableView<PanelHeader> table = new TableView<PanelHeader>();
@@ -78,6 +83,9 @@ public class InfluencerHomePage {
 		
 		panelList = panelController.getAllPanelByInfluencer(influencer.getUserId());
 		obsPanelList = FXCollections.observableArrayList(panelList);
+		
+		var.menuBar.getMenus().add(var.menu);
+		var.menu.getItems().add(var.menuItemLogOut);
 		
 		//Table
 		
@@ -169,6 +177,7 @@ public class InfluencerHomePage {
 		
 		var.scrollContainer.setContent(var.mainBox);
 		
+		var.mainContainer.setTop(var.menuBar);
 		var.mainContainer.setCenter(var.scrollContainer);
 		
 		var.influencerHomeScene = new Scene(var.mainContainer, 800, 600);
@@ -200,6 +209,7 @@ public class InfluencerHomePage {
 		
 		this.influencer = user;
 		
+		userController.InfluencerPageHandler(var, stage);
 		initialize(var);
 		style(var);
 		

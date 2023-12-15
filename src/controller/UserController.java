@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import model.database.UserModel;
 import model.object.User;
 import view.InfluencerHomePage;
+import view.InfluencerHomePage.InfluencerHomeVar;
 import view.LoginPage;
 import view.LoginPage.LoginVar;
 import view.RegisterPage;
@@ -53,45 +54,39 @@ public class UserController {
 		
 		var.submitButton.setOnMouseClicked(e -> {
 			
-			navigateHome(stage);
+			if(var.emailInput.getText().isEmpty()) {
+				var.error.setText("Email must be filled");
+				return;
+				
+			} else if(var.passInput.getText().isEmpty()) {
+				var.error.setText("Password must be filled");
+				return;
+				
+			}
 			
-//			if(var.emailInput.getText().isEmpty()) {
-//				var.error.setText("Email must be filled");
-//				return;
-//				
-//			} else if(var.passInput.getText().isEmpty()) {
-//				var.error.setText("Password must be filled");
-//				return;
-//				
-//			}
-//			
-//			String email = var.emailInput.getText().toString();
-//			String password = var.passInput.getText().toString();
-//			
-//			User user = this.getUserByEmail(email);
-//			
-//			if(user != null) {
-//				
-//				if(user.getPassword().equals(password) && user.getRole().equals("Vendor")) {
-//					navigateVendor(stage);
-//					
-//				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
-//					navigateInfluencer(stage, user);
-//					
-//				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
-//					navigateHome(stage);
-//				}else {
-//					var.error.setText("The password is wrong");
-//				}
-//				
-//			} else {
-//				var.error.setText("Account doesn't exist");
-//			}
+			String email = var.emailInput.getText().toString();
+			String password = var.passInput.getText().toString();
+			
+			User user = this.getUserByEmail(email);
+			
+			if(user != null) {
+				
+				if(user.getPassword().equals(password) && user.getRole().equals("Vendor")) {
+					navigateVendor(stage);
+					
+				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
+					navigateInfluencer(stage, user);
+					
+				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
+					navigateHome(stage);
+				}else {
+					var.error.setText("The password is wrong");
+				}
+				
+			} else {
+				var.error.setText("Account doesn't exist");
+			}
 		});
-		
-	}
-	
-	public void HomePageHandler(HomeVar var, Stage stage) {
 		
 	}
 	
@@ -117,6 +112,18 @@ public class UserController {
 			}
 		});
 
+	}
+	
+	public void HomePageHandler(HomeVar fanVar, Stage stage) {
+		fanVar.menuItemLogOut.setOnAction(e->{
+			navigateLogin(stage);
+		});
+	}
+	
+	public void InfluencerPageHandler(InfluencerHomeVar influenceVar, Stage stage) {
+		influenceVar.menuItemLogOut.setOnAction(e->{
+			navigateLogin(stage);
+		});
 	}
 	
 	

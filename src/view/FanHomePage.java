@@ -9,6 +9,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +36,10 @@ public class FanHomePage {
 		VBox contentBox = new VBox();
 		VBox contentBox2 = new VBox();
 		
+		MenuBar menuBar = new MenuBar();
+		Menu menu = new Menu("Menu");
+		public MenuItem menuItemLogOut = new MenuItem("Log Out");
+		
 		TableView<PanelHeader> unfinishedTable = new TableView<PanelHeader>();
 		TableColumn<PanelHeader, String> panelTitle = new TableColumn<>("Panel Title");
 		TableColumn<PanelHeader, String> panelDescription = new TableColumn<>("Panel Description");
@@ -56,19 +63,12 @@ public class FanHomePage {
 	
 	private void initialize(HomeVar var) {	
 		
-		try {
-			unfinishedPanel = pd.getUnfinishedPanels();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		unfinishedPanel = pd.getUnfinishedPanels();
 		
-		try {
-			finishedPanel = pd.getFinishedPanels();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		finishedPanel = pd.getFinishedPanels();		
+		
+		var.menuBar.getMenus().add(var.menu);
+		var.menu.getItems().add(var.menuItemLogOut);
 		
 		var.panelTitle.setCellValueFactory(new PropertyValueFactory<>("panelTitle"));
 		var.panelDescription.setCellValueFactory(new PropertyValueFactory<>("panelDescription"));
@@ -109,6 +109,7 @@ public class FanHomePage {
 		
 		var.mainBox.getChildren().addAll(var.homeContainer);
 		
+		var.mainContainer.setTop(var.menuBar);
 		var.mainContainer.setCenter(var.mainBox);
 		
 		var.homeScene = new Scene(var.mainContainer, 800, 600);
