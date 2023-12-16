@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import model.database.UserModel;
 import model.object.User;
 import view.InfluencerHomePage;
+import view.InfluencerHomePage.InfluencerHomeVar;
 import view.LoginPage;
 import view.LoginPage.LoginVar;
 import view.RegisterPage;
@@ -89,10 +90,6 @@ public class UserController {
 		
 	}
 	
-	public void HomePageHandler(HomeVar var, Stage stage) {
-		
-	}
-	
 	public void registerHandler(RegisterVar var, Stage stage) {
 
 		var.menuItemLogin.setOnAction(e -> {
@@ -114,6 +111,18 @@ public class UserController {
 			}
 		});
 
+	}
+	
+	public void HomePageHandler(HomeVar fanVar, Stage stage) {
+		fanVar.menuItemLogOut.setOnAction(e->{
+			navigateLogin(stage);
+		});
+	}
+	
+	public void InfluencerPageHandler(InfluencerHomeVar influenceVar, Stage stage) {
+		influenceVar.menuItemLogOut.setOnAction(e->{
+			navigateLogin(stage);
+		});
 	}
 	
 	

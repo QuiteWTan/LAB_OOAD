@@ -114,8 +114,6 @@ public class UserModel {
 		Connect db = Connect.getInstance();
 
 		String query = String.format("SELECT * FROM users WHERE email = '%s'", email);
-		
-		System.out.println(email);
 
 		ResultSet data = db.selectData(query);
 
