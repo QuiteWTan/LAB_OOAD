@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controller.UserController;
-import database.Connect;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,101 +13,112 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.object.User;
-import view.LoginPage.LoginVar;
+
 
 public class ViewAllVendor {
 
-	Stage stage;
-	Scene scene;
-	BorderPane bp;
-	VBox vb;
+	UserController uc = new UserController();
 	
-	TableView<User> table;
-	TableColumn<User, Integer> id_col;
-	TableColumn<User, String> username_col, email_col;
-	TableColumn<User, Button> action_col;
-	
-	Label title1, title2, username, password, username_del;
-	TextField username_tf, username_tf2;
-	PasswordField pass_pf;
-	Button btnUpdate, btnDelete;
-	UserController uc;
-	
-	private void getData() {
-		ArrayList<User> userList = new ArrayList<>();
-		Connect con = Connect.getInstance();
-		uc = new UserController();
+	public class ViewVendorVar {
 		
-		vb = new VBox();
-		table = new TableView<User>();
-		username_col = new TableColumn<>("username");
-		email_col = new TableColumn<>("email");
-		id_col = new TableColumn<>("userId");
-		action_col =  new TableColumn<>("action");
+		Stage stage;
+		Scene scene;
+		BorderPane mainContainer = new BorderPane();
+		VBox vendorTable = new VBox(8);
 		
-        table.getColumns().addAll(id_col, username_col,  email_col );
-        
-        userList.addAll(uc.getAllVendor("vendor"));
-        btnUpdate = new Button("UPDATE");
-        
-        for (User user : userList) {
-        	table.getItems().add(user);
-		}
-        btnDelete = new Button("DELETE");
-        username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
-        id_col.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
-        table.setMaxHeight(150);
-        username_col.setMinWidth(200);
-        id_col.setPrefWidth(200);
-        email_col.setPrefWidth(200);
-        
-        vb.getChildren().add(table);
-        vb.setPadding(new Insets(20, 30, 30, 30));
-        scene = new Scene(vb, 650, 650);
+		MenuBar menuBar = new MenuBar();
+		Menu menu = new Menu("Menu");
+		
+		TableView<User> table = new TableView<User>();
+		TableColumn<User, Integer> id_col = new TableColumn<>("userId");
+		TableColumn<User, String> username_col= new TableColumn<>("username");
+		TableColumn<User, String> email_col= new TableColumn<>("email");
+		TableColumn<User, Void> action_col =  new TableColumn<>("action");
+		public MenuItem AdminMenu = new MenuItem("Log Out");
+		
+		Label pageTitle = new Label("All Vendors Page");
+		
 	}
 	
-//	private void delete(String query) {
-//		Connect con = Connect.getInstance();
-//		
-//		con.deleteUser(query, username_tf2.getText());
-//		
-//		username_tf2.clear();
-//		
-//		uc.navigateLogin(stage);
-//	}
+	private void initialize(ViewVendorVar var) {
+        
+        ArrayList<User> userList = new ArrayList<>();
+        userList.addAll(uc.getAllVendor("Vendor"));
+        
+        for (User user : userList) {
+        	var.table.getItems().add(user);
+		}
+        
+        var.username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        var.id_col.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        var.email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
+        var.action_col.setCellFactory(new Callback<TableColumn<User,Void>, TableCell<User, Void>>() {		
+			@Override
+			public TableCell<User, Void> call(TableColumn<User, Void> param) {
+				
+				return new TableCell<User, Void>() {
+					
+					private final Button DeleteButton = new Button("Delete");
+					
+					{
+						DeleteButton.setOnMouseClicked(e->{
+							User data = getTableView().getItems().get(getIndex());
+							uc.deleteUserById(data.getUserId());
+						});
+					}
+					@Override
+					protected void updateItem(Void item, boolean empty) {
+						super.updateItem(item, empty);
+						if(empty) {
+							setGraphic(null);
+						} else {
+							setGraphic(DeleteButton);
+						}
+					}
+					
+					
+				};
+			};
+        });
+        var.menuBar.getMenus().add(var.menu);
+		var.menu.getItems().add(var.AdminMenu);
+		
+        var.mainContainer.setTop(var.menuBar);
+        var.mainContainer.setCenter(var.vendorTable);
+        var.table.setMaxHeight(450);
+        
+        var.username_col.setPrefWidth(200);
+        var.id_col.setPrefWidth(50);
+        var.email_col.setPrefWidth(200);
+    	var.table.getColumns().addAll(var.id_col, var.username_col,  var.email_col, var.action_col);
+    	var.vendorTable.setAlignment(Pos.TOP_CENTER);
+    	var.pageTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
+    	var.vendorTable.getChildren().add(var.pageTitle);
+        var.vendorTable.getChildren().add(var.table);
+        var.vendorTable.setPadding(new Insets(20, 30, 30, 30));
+        
+        var.scene = new Scene(var.mainContainer, 800, 600);
+        
+	}
 	
-//	private void handling() {
-//		btnUpdate.setOnAction(e->{
-//			String query = "UPDATE User SET Password = ? WHERE Username = ?";
-//			
-//			update(query);
-//		});
-//		
-//		btnDelete.setOnAction(e->{
-//			String query = "DELETE FROM User WHERE Username = ?";
-//			
-//			delete(query);
-//		});
-//	}
+
 	
 	public ViewAllVendor(Stage stage) {
-		getData();
-//		handling();
-		this.stage = stage;
-		this.stage.setResizable(false);
-		this.stage.setScene(scene);
-		this.stage.show();
+		ViewVendorVar var = new ViewVendorVar();
+		uc.ViewAllVendorPageHandler(var, stage);
+		initialize(var);
+		stage.setScene(var.scene);
+		stage.setTitle("View All Vendor Page");
+		stage.show();
 	}
 
 

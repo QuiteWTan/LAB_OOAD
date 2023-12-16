@@ -29,7 +29,7 @@ public class PanelCellFactory implements Callback<ListView<PanelHeader>, ListCel
 
                     // Set an action for the button
                     printButton.setOnAction(event -> {
-                    	FanController.showDetails(item.getPanelId(), Integer.parseInt(item.getUserId()));
+//                    	FanController.showDetails(item.getPanelId(), Integer.parseInt(item.getUserId()));
                     });
 
                     // Set the cell content to display the information and the button

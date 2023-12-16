@@ -117,7 +117,7 @@ public class ViewAccount extends BorderPane {
     }
     
     public Scene getViewScene() {
-    	return new Scene(this, 1100,600);
+    	return new Scene(this, 800,600);
     }
     
     public void refreshUserList(ArrayList<User> users) {

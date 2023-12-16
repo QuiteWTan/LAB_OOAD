@@ -16,7 +16,7 @@ public class Main extends Application{
 		
 		UserController uc = new UserController();
 		
-		uc.navigateTestPage(primaryStage);
+		uc.navigateViewAllTransactionHistory(primaryStage);
 		primaryStage.show();
 	}
 

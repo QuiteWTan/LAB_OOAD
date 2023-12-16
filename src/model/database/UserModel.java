@@ -47,12 +47,15 @@ public class UserModel {
         ResultSet data = db.selectData(query);
 
         try {
-            String usernameData = data.getString("username");
-            String emailData = data.getString("email");
-            String passwordData = data.getString("password");
-            String roleData = data.getString("role");
-
-            return new User(userId, usernameData, emailData, passwordData, roleData);
+        	if(data.next()) {
+        		String usernameData = data.getString("username");
+        		String emailData = data.getString("email");
+        		String passwordData = data.getString("password");
+        		String roleData = data.getString("role");
+        		
+        		return new User(userId, usernameData, emailData, passwordData, roleData);
+        		
+        	}
                 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,31 +107,31 @@ public class UserModel {
         return userData;
     }
     
-    public ArrayList<User> getAllUsersByEmail(String email) {
-        Connect db = Connect.getInstance();
+	public User getUserByEmail(String email) {
+		Connect db = Connect.getInstance();
 
-        String query = String.format("SELECT * FROM users WHERE email = '%s'", email);
+		String query = String.format("SELECT * FROM users WHERE email = '%s'", email);
 
-        ResultSet data = db.selectData(query);
+		ResultSet data = db.selectData(query);
 
-        ArrayList<User> userData = new ArrayList<>();
+		try {
+			if(data.next()) {
+				Integer userIdData = data.getInt("userId");
+				String usernameData = data.getString("username");
+				String userEmailData = data.getString("email");
+				String passwordData = data.getString("password");
+				String roleData = data.getString("role");
+				
+				return new User(userIdData, usernameData, userEmailData, passwordData, roleData);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
 
-        try {
-            while (data.next()) {
-                Integer userIdData = data.getInt("userId");
-                String usernameData = data.getString("username");
-                String userEmailData = data.getString("email");
-                String passwordData = data.getString("password");
-                String roleData = data.getString("role");
-
-                userData.add(new User(userIdData, usernameData, userEmailData, passwordData, roleData));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return userData;
-    }
+		return null;
+	}
     
     public Boolean searchExistingUsername(String username) {
     	
@@ -141,7 +144,10 @@ public class UserModel {
     	String usernameData = null;
     	
     	try {
-			usernameData = data.getString("username");
+    		if(data.next()) {
+    			usernameData = data.getString("username");
+    			
+    		}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -165,7 +171,10 @@ public class UserModel {
     	String emailData = null;
     	
     	try {
-			emailData = data.getString("email");
+    		if(data.next()) {
+    			emailData = data.getString("email");
+    			
+    		}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
