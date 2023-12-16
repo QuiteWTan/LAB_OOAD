@@ -7,4 +7,6 @@ module OOAD_LAB {
 	requires java.sql;
 	requires java.desktop;
 	requires javafx.base;
+	opens model.object to javafx.base;
+	exports model.object;
 }

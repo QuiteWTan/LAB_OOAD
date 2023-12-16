@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import database.Connect;
@@ -14,6 +15,7 @@ import view.LoginPage.LoginVar;
 import view.RegisterPage;
 import view.RegisterPage.RegisterVar;
 import view.ViewAccount;
+import view.ViewAllVendor;
 
 public class UserController {
 	
@@ -110,6 +112,16 @@ public class UserController {
 	    
 	    return false;
   
+	}
+	
+	public void navigateTestPage(Stage stage) {
+		new ViewAllVendor(stage);
+	}
+	
+	public ArrayList<User> getAllVendor(String role) {
+		ArrayList<User> res = userModel.getAllUsersInRole(role);
+		
+		return res;
 	}
 	
 //	private User currUser;

@@ -16,7 +16,7 @@ public class Main extends Application{
 		
 		UserController uc = new UserController();
 		
-		uc.navigateLogin(primaryStage);
+		uc.navigateTestPage(primaryStage);
 		primaryStage.show();
 	}
 

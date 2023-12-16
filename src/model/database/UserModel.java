@@ -84,13 +84,10 @@ public class UserModel {
 	
     public ArrayList<User> getAllUsersInRole(String role) {
         Connect db = Connect.getInstance();
-
         String query = String.format("SELECT * FROM `users` WHERE role = '%s'", role);
-
         ResultSet data = db.selectData(query);
 
         ArrayList<User> userData = new ArrayList<>();
-
         try {
             while (data.next()) {
                 Integer userIdData = data.getInt("userId");
