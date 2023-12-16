@@ -106,9 +106,9 @@ public class InfluencerHomePage {
 				
 				return new TableCell<PanelHeader, Void>() {
 					
-					private final Button viewDetailButton = new Button("Detail");
+					private final Button Fa = new Button("Detail");
 					{
-						viewDetailButton.setOnMouseClicked(e->{
+						Fa.setOnMouseClicked(e->{
 							PanelHeader data = getTableView().getItems().get(getIndex());
 							panelController.openPopUp(data);
 						});
@@ -120,7 +120,7 @@ public class InfluencerHomePage {
 						if(empty) {
 							setGraphic(null);
 						} else {
-							setGraphic(viewDetailButton);
+							setGraphic(Fa);
 						}
 					}
 				};
