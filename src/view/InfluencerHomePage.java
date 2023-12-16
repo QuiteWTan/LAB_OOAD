@@ -14,6 +14,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -44,6 +45,8 @@ public class InfluencerHomePage {
 		VBox mainBox = new VBox(16);
 		VBox tableContainer = new VBox();
 		VBox formContainer = new VBox(8);
+		HBox startContainer = new HBox(8);
+		HBox endContainer = new HBox(8);
 
 		MenuBar menuBar = new MenuBar();
 		Menu menu = new Menu("Menu");
@@ -64,7 +67,7 @@ public class InfluencerHomePage {
 		Label locationLabel = new Label("Location");
 		Label startTimeLabel = new Label("Start Time");
 		Label endTimeLabel = new Label("End Time");
-		Label error = new Label();
+		public Label error = new Label();
 
 		Label addPanelTitle = new Label("Add Panel");
 		
@@ -72,8 +75,11 @@ public class InfluencerHomePage {
 		public TextField titleInput = new TextField();
 		public TextField descInput = new TextField();
 		public TextField locationInput = new TextField();
-		public TextField startTimeInput = new TextField();
-		public TextField endTimeInput = new TextField();
+		
+		public Spinner<Integer> startHour = new Spinner<>(9, 21, 9);
+		public Spinner<Integer> startMinute = new Spinner<>(0, 59, 0);
+		public Spinner<Integer> endHour = new Spinner<>(9, 23, 9);
+		public Spinner<Integer> endMinute = new Spinner<>(0, 59, 0);
 
 		// Button
 		public Button submitButton = new Button("Add");
@@ -162,12 +168,16 @@ public class InfluencerHomePage {
 		//Body
 		var.tableContainer.getChildren().add(var.table);
 		
+		var.startContainer.getChildren().addAll(var.startHour, var.startMinute);
+		
+		var.endContainer.getChildren().addAll(var.endHour, var.endMinute);
+		
 		var.formContainer.getChildren().addAll(
 				var.titleLabel, var.titleInput, 
 				var.descLabel, var.descInput, 
 				var.locationLabel, var.locationInput, 
-				var.startTimeLabel, var.startTimeInput, 
-				var.endTimeLabel, var.endTimeInput, 
+				var.startTimeLabel, var.startContainer, 
+				var.endTimeLabel, var.endContainer, 
 				var.submitButton, var.error
 				);
 		
@@ -212,6 +222,7 @@ public class InfluencerHomePage {
 		userController.InfluencerPageHandler(var, stage);
 		initialize(var);
 		style(var);
+		panelController.influencerHomeHandler(var, stage, user);
 		
 		stage.setScene(var.influencerHomeScene);
 		stage.setTitle("Login");

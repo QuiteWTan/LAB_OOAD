@@ -9,7 +9,7 @@ import model.object.PanelHeader;
 
 public class PanelHeaderModel {
 	
-	public static ArrayList<PanelHeader> getAllPanels(){
+	public ArrayList<PanelHeader> getAllPanels(){
 		Connect db = Connect.getInstance();
 		ArrayList<PanelHeader> PanelList = new ArrayList<>();
 		
@@ -67,10 +67,16 @@ public class PanelHeaderModel {
 		
 	}
 	
-	//Add panel
-//	public void addPanel(Integer userId, String panelTitle, String panelDescription, String location, String startTime, String endTime) throws SQLException {
-//		
-//	}
+	public void addPanel(Integer userId, String panelTitle, String panelDescription, String location, String startTime, String endTime) {
+		
+		Connect db = Connect.getInstance();
+		
+		String query = String.format("INSERT INTO `panelheaders` (userId, panelTitle, panelDescription, location, startTime, endTime, isFinished) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', 0)",
+				userId, panelTitle, panelDescription, location, startTime, endTime);
+		
+		db.execute(query);
+		
+	}
 	
 	//Set panel time
 	
