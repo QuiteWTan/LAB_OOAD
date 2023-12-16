@@ -9,7 +9,7 @@ import model.object.User;
 
 public class PanelDetailModel {
 
-	public void addAttendee(Integer panelId, Integer userId) throws SQLException {
+	public void addAttendee(Integer panelId, Integer userId) {
         Connect db = Connect.getInstance();
 
         String query = String.format("INSERT INTO `PanelDetails` (panelId, userId) VALUES (%d, %d)", panelId, userId);
@@ -17,7 +17,7 @@ public class PanelDetailModel {
         db.execute(query);        
     }
     
-    public ArrayList<User> getAllAttendee(Integer panelId) throws SQLException {
+    public ArrayList<User> getAllAttendee(Integer panelId) {
     	ArrayList<User> listUser = new ArrayList<>();
     	Connect db = Connect.getInstance();
     	
@@ -42,7 +42,7 @@ public class PanelDetailModel {
     	return listUser;	
     }
     
-    public void deletePanel(Integer panelId) throws SQLException {
+    public void deletePanel(Integer panelId) {
         Connect db = Connect.getInstance();
         
         String query = String.format("DELETE FROM `PanelDetails` WHERE panelId = %d", panelId);
@@ -50,7 +50,7 @@ public class PanelDetailModel {
         db.execute(query);        
     }
     
-    public void deleteAttendee(Integer userId) throws SQLException {
+    public void deleteAttendee(Integer userId) {
     	Connect db = Connect.getInstance();
     	
     	String query = String.format("DELETE FROM `PanelDetails` WHERE userId = %d ", userId);

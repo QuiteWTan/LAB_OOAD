@@ -114,8 +114,7 @@ public class UserController {
 			String email = var.emailInput.getText().toString();
 			String password = var.passInput.getText().toString();
 			String confirmPassword = var.cfPasswordInput.getText().toString();
-			RadioButton selectedRole = (RadioButton) var.roleSelectionGroup.getSelectedToggle();
-			String role = selectedRole.getText().toString();
+			String role = var.roleSelectionGroup.getSelectedToggle().getUserData().toString();
 			
 			Boolean success = this.addUser(var, username, email, password, confirmPassword, role);
 			
@@ -151,7 +150,7 @@ public class UserController {
 	
 	//Validation logic
 	
-	public Boolean validateUsername(RegisterVar var, String username) {
+	private Boolean validateUsername(RegisterVar var, String username) {
 		
 		if(username.isEmpty()) {
 			var.error.setText("username must be filled");
@@ -166,7 +165,7 @@ public class UserController {
 		return true;
 	}
 	
-	public Boolean validateEmail(RegisterVar var,  String email) {
+	private Boolean validateEmail(RegisterVar var, String email) {
 		
 		if(!email.contains("@")) {
 			var.error.setText("email format is wrong");
@@ -181,7 +180,7 @@ public class UserController {
 		
 	}
 	
-	public Boolean hasChar(String str) {
+	private Boolean hasChar(String str) {
 		for (char ch : str.toCharArray()) {
 			if(Character.isLetter(ch)) {
 				return true;
@@ -192,7 +191,7 @@ public class UserController {
 		return false;
 	}
 	
-	public Boolean hasDigit(String str) {
+	private Boolean hasDigit(String str) {
 		for (char ch : str.toCharArray()) {
 			if(Character.isDigit(ch)) {
 				return true;
@@ -202,7 +201,7 @@ public class UserController {
 		return false;
 	}
 	
-	public Boolean validatePassword(RegisterVar var,  String password, String confirmPassword) {
+	private Boolean validatePassword(RegisterVar var,  String password, String confirmPassword) {
 		
 		if(password.length() < 6){
 			var.error.setText("password must be 6 or more characters long");
