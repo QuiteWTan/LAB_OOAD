@@ -74,7 +74,7 @@ public class InfluencerHomePage {
 		public Button submitButton = new Button("Add");
 	}
 	
-	public void initialize(InfluencerHomeVar var) {
+	private void initialize(InfluencerHomeVar var) {
 		
 		panelList = panelController.getAllPanelByInfluencer(influencer.getUserId());
 		obsPanelList = FXCollections.observableArrayList(panelList);
@@ -96,6 +96,7 @@ public class InfluencerHomePage {
 					{
 						viewDetailButton.setOnMouseClicked(e->{
 							PanelHeader data = getTableView().getItems().get(getIndex());
+							panelController.openPopUp(data);
 						});
 					}
 					
@@ -124,10 +125,10 @@ public class InfluencerHomePage {
 						finishPanelButton.setOnMouseClicked(e -> {
 							PanelHeader data = getTableView().getItems().get(getIndex());
 							panelController.finishPanel(data.getPanelId());
-//							panelList = panelController.getAllPanelByInfluencer(influencer.getUserId());
-//							obsPanelList = FXCollections.observableArrayList(panelList);
-//							var.table.setItems(obsPanelList);
-//							var.table.refresh();
+							panelList = panelController.getAllPanelByInfluencer(influencer.getUserId());
+							obsPanelList = FXCollections.observableArrayList(panelList);
+							var.table.setItems(obsPanelList);
+							var.table.refresh();
 							
 						});
 					}
@@ -144,7 +145,6 @@ public class InfluencerHomePage {
 				};
 			}
 		});
-		
 		
 		var.table.setItems(obsPanelList);
 		

@@ -68,15 +68,18 @@ public class RegisterPage{
 				var.emailLabel, var.emailInput, 
 				var.passLabel, var.passInput, 
 				var.cfPassLabel, var.cfPasswordInput, 
-				var.roleLabel, var.vendorRadioButton, var.influencerRadioButton, 
+				var.roleLabel, var.fanRadioButton, var.vendorRadioButton, var.influencerRadioButton, 
 				var.submitButton, 
 				var.error, var.resultLabel
 				);
 		
-		var.vendorRadioButton.setToggleGroup(var.roleSelectionGroup);
-		var.vendorRadioButton.setSelected(true);
-		var.influencerRadioButton.setToggleGroup(var.roleSelectionGroup);
 		var.fanRadioButton.setToggleGroup(var.roleSelectionGroup);
+		var.fanRadioButton.setUserData("Fan");
+		var.fanRadioButton.setSelected(true);
+		var.vendorRadioButton.setToggleGroup(var.roleSelectionGroup);
+		var.vendorRadioButton.setUserData("Vendor");
+		var.influencerRadioButton.setToggleGroup(var.roleSelectionGroup);
+		var.influencerRadioButton.setUserData("Influencer");
 		
 		//Setup
 		var.mainBox.getChildren().addAll(var.pageTitle,  var.registerContainer);

@@ -105,8 +105,7 @@ public class UserController {
 			String email = var.emailInput.getText().toString();
 			String password = var.passInput.getText().toString();
 			String confirmPassword = var.cfPasswordInput.getText().toString();
-			RadioButton selectedRole = (RadioButton) var.roleSelectionGroup.getSelectedToggle();
-			String role = selectedRole.getText().toString();
+			String role = var.roleSelectionGroup.getSelectedToggle().getUserData().toString();
 			
 			Boolean success = this.addUser(var, username, email, password, confirmPassword, role);
 			
