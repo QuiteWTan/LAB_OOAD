@@ -2,25 +2,23 @@ package controller;
 
 import java.util.ArrayList;
 
-import database.Connect;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.database.UserModel;
-import model.object.PanelDetail;
-import model.object.PanelHeader;
 import model.object.User;
 import view.InfluencerHomePage;
 import view.InfluencerHomePage.InfluencerHomeVar;
 import view.LoginPage;
 import view.LoginPage.LoginVar;
-import view.PanelDetailView;
 import view.RegisterPage;
 import view.RegisterPage.RegisterVar;
+import view.AdminPage;
 import view.FanHomePage;
 import view.FanHomePage.HomeVar;
 import view.ViewAccount;
+import view.AdminPage.AdminVar;
 
 public class UserController {
 	
@@ -36,7 +34,7 @@ public class UserController {
 		new RegisterPage(stage);
 	}
 	
-	public void navigateHome(Stage stage, User user) {
+	public void navigateFan(Stage stage, User user) {
 		new FanHomePage(stage, user);
 	}
 	
@@ -46,6 +44,12 @@ public class UserController {
 	
 	public void navigateInfluencer(Stage stage, User user) {
 		new InfluencerHomePage(stage, user);
+	}
+	
+	public void navigateAdmin(Stage stage) {
+		
+		new AdminPage(stage);
+		
 	}
 	
 	
@@ -81,8 +85,12 @@ public class UserController {
 					navigateInfluencer(stage, user);
 					
 				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
-					navigateHome(stage, user);
-				}else {
+					navigateFan(stage, user);
+					
+				} else if (user.getPassword().equals(password) && user.getRole().equals("Admin")) {
+					navigateAdmin(stage);
+					
+				} else {
 					var.error.setText("The password is wrong");
 				}
 				
@@ -128,6 +136,36 @@ public class UserController {
 		});
 	}
 	
+//	public void adminHandler(AdminVar var, Stage stage) {
+//		
+//		var.menuItemFan.setOnAction(e->{
+//			
+//			var.dataContainer = this.showFanAccount();
+//			navigateAdmin(stage);
+//			
+//		});
+//		
+//		var.menuItemInfluencer.setOnAction(e->{
+//			
+//			var.dataContainer = this.showInfluencerAccount();
+//			navigateAdmin(stage);
+//			
+//		});
+//		
+//		var.menuItemVendor.setOnAction(e->{
+//			
+//			var.dataContainer = this.showVendorAccount();
+//			navigateAdmin(stage);
+//			
+//		});
+//		
+//		var.menuItemLogOut.setOnAction(e->{
+//			
+//			navigateLogin(stage);
+//			
+//		});
+//		
+//	}
 	
 	//Register Validation logic
 	
@@ -224,77 +262,63 @@ public class UserController {
 		return userModel.getUserByEmail(email);
 		
 	}
+		
+	// Account
+	private ArrayList<User> users;
 	
-//	private User currUser;
-//	private Boolean isAdmin; 
-//	
-//	// Account
-//	private ArrayList<User> users;
-//	
-//	
-//	public UserController() {
-//		
-//		// Dummy User
-//		this.currUser = new User(1, "admin", "admin@gmail.com", "admin", "Admin");
-////		currUser = newcurrUser.getRole().equals("Admin") ? true : false;
-//		 User(1, "user1", "user1@gmail.com", "user1", "User");
-//		this.isAdmin = 
-//		this.users = new ArrayList<>();
-//	}
-//	
-//	public Scene showFanAccount() {
-//		this.users = userModel.getAllUsersInRole("Fan");
-//		String titleString = "Fan Accounts";
-//		
-//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-//		
-//		view.setButtonClickHandler(() -> {
-//			deleteSelectedUser(view.getSelectedUsers());
-//			this.users = userModel.getAllUsersInRole("Fan");
-//			view.refreshUserList(this.users);
-//        });
-//        
-//        return view.getViewScene();
-//
-//	}
-//	
-//	public Scene showInfluencerAccount() {
-//		this.users = userModel.getAllUsersInRole("Influencer");
-//		String titleString = "Influencer Accounts";
-//		
-//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-//		
-//		view.setButtonClickHandler(() -> {
-//			deleteSelectedUser(view.getSelectedUsers());
-//			this.users = userModel.getAllUsersInRole("Influencer");
-//			view.refreshUserList(this.users);
-//        });
-//        
-//        
-//        return view.getViewScene();
-//	}
-//	
-//	public Scene showVendorAccount() {
-//		this.users = userModel.getAllUsersInRole("Vendor");
-//		String titleString = "Vendor Accounts";
-//		
-//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-//		
-//		view.setButtonClickHandler(() -> {
-//			deleteSelectedUser(view.getSelectedUsers());
-//			this.users = userModel.getAllUsersInRole("Vendor");
-//			view.refreshUserList(this.users);
-//        });
-//        
-//        
-//        return view.getViewScene();
-//		
-//	}
-//	
-//	public void deleteSelectedUser(ObservableList<User> users) {
-//		for (User user : users) {
-//			userModel.deleteUser(user.getUserId());	
-//		}	
-//	}
+	public Scene showFanAccount() {
+		this.users = userModel.getAllUsersInRole("Fan");
+		String titleString = "Fan Accounts";
+		
+		ViewAccount view = new ViewAccount(this.users, titleString);
+		
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
+			this.users = userModel.getAllUsersInRole("Fan");
+			view.refreshUserList(this.users);
+        });
+        
+        return view.getViewScene();
+
+	}
+	
+	public Scene showInfluencerAccount() {
+		this.users = userModel.getAllUsersInRole("Influencer");
+		String titleString = "Influencer Accounts";
+		
+		ViewAccount view = new ViewAccount(this.users, titleString);
+		
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
+			this.users = userModel.getAllUsersInRole("Influencer");
+			view.refreshUserList(this.users);
+        });
+        
+        
+        return view.getViewScene();
+	}
+	
+	public Scene showVendorAccount() {
+		this.users = userModel.getAllUsersInRole("Vendor");
+		String titleString = "Vendor Accounts";
+		
+		ViewAccount view = new ViewAccount(this.users, titleString);
+		
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
+			this.users = userModel.getAllUsersInRole("Vendor");
+			view.refreshUserList(this.users);
+        });
+        
+        
+        return view.getViewScene();
+		
+	}
+	
+	public void deleteSelectedUser(ObservableList<User> users) {
+		for (User user : users) {
+			userModel.deleteUser(user.getUserId());	
+		}	
+	}
 	
 }

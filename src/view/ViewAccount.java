@@ -25,7 +25,6 @@ public class ViewAccount extends BorderPane {
 	
 	private ObservableList<User> userList;
     private TableView<User> tableView;
-    private Boolean isAdmin;
     
 	public ScrollPane sp;
 	public Button deleteBtn;
@@ -33,9 +32,7 @@ public class ViewAccount extends BorderPane {
 	public VBox vb;
 	public Label titleLbl;
 	
-	
-	public ViewAccount(ArrayList<User> users, String title, Boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public ViewAccount(ArrayList<User> users, String title) {
 		this.titleLbl = new Label(title);
 		init();
 		this.userList = FXCollections.observableArrayList(users);
@@ -100,12 +97,7 @@ public class ViewAccount extends BorderPane {
 		
 		this.vb.setSpacing(10);
 		
-		if (this.isAdmin) {
-			this.vb.getChildren().addAll(this.titleLbl,this.sp,this.fp);
-		}
-		else {
-			this.vb.getChildren().addAll(this.titleLbl,this.sp);
-		}
+		this.vb.getChildren().addAll(this.titleLbl,this.sp,this.fp);
 		
         this.vb.setVgrow(this.titleLbl, Priority.ALWAYS);
         this.vb.setAlignment(Pos.CENTER);
@@ -117,7 +109,7 @@ public class ViewAccount extends BorderPane {
     }
     
     public Scene getViewScene() {
-    	return new Scene(this, 1100,600);
+    	return new Scene(this, 800,600);
     }
     
     public void refreshUserList(ArrayList<User> users) {
