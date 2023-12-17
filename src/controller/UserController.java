@@ -8,11 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 import model.database.UserModel;
+import model.object.PanelDetail;
+import model.object.PanelHeader;
 import model.object.User;
 import view.InfluencerHomePage;
 import view.InfluencerHomePage.InfluencerHomeVar;
 import view.LoginPage;
 import view.LoginPage.LoginVar;
+import view.PanelDetailView;
 import view.RegisterPage;
 import view.RegisterPage.RegisterVar;
 import view.FanHomePage;
@@ -33,8 +36,8 @@ public class UserController {
 		new RegisterPage(stage);
 	}
 	
-	public void navigateHome(Stage stage) {
-		new FanHomePage(stage);
+	public void navigateHome(Stage stage, User user) {
+		new FanHomePage(stage, user);
 	}
 	
 	public void navigateVendor(Stage stage) {
@@ -52,7 +55,7 @@ public class UserController {
 			navigateRegister(stage);
 		});
 		
-		var.submitButton.setOnMouseClicked(e -> {
+		var.submitButton.setOnMouseClicked(e -> {			
 			
 			if(var.emailInput.getText().isEmpty()) {
 				var.error.setText("Email must be filled");
@@ -78,7 +81,7 @@ public class UserController {
 					navigateInfluencer(stage, user);
 					
 				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
-					navigateHome(stage);
+					navigateHome(stage, user);
 				}else {
 					var.error.setText("The password is wrong");
 				}
