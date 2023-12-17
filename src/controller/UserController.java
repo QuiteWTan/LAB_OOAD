@@ -17,6 +17,10 @@ import view.RegisterPage.RegisterVar;
 import view.AdminPage;
 import view.FanHomePage;
 import view.FanHomePage.HomeVar;
+import view.FanPanelView;
+import view.FanPanelView.FanPanelVar;
+import view.FanVendorView;
+import view.FanVendorView.FanVendorVar;
 import view.ViewAccount;
 import view.AdminPage.AdminVar;
 
@@ -34,9 +38,20 @@ public class UserController {
 		new RegisterPage(stage);
 	}
 	
-	public void navigateFan(Stage stage, User user) {
+	// Fan
+	public void navigateFanHome(Stage stage, User user) {
 		new FanHomePage(stage, user);
 	}
+	
+	public void navigateFanPanel(Stage stage, User user) {
+		new FanPanelView(stage, user);
+	}
+	
+	public void navigateFanVendor(Stage stage, User user) {
+		new FanVendorView(stage, user);
+	}
+	
+//	========================================================
 	
 	public void navigateVendor(Stage stage) {
 		
@@ -85,7 +100,7 @@ public class UserController {
 					navigateInfluencer(stage, user);
 					
 				}else if (user.getPassword().equals(password) && user.getRole().equals("Fan")) {
-					navigateFan(stage, user);
+					navigateFanHome(stage, user);
 					
 				} else if (user.getPassword().equals(password) && user.getRole().equals("Admin")) {
 					navigateAdmin(stage);
@@ -124,11 +139,43 @@ public class UserController {
 
 	}
 	
-	public void HomePageHandler(HomeVar fanVar, Stage stage) {
+	// Handler
+	//Fan
+	public void HomePageHandler(HomeVar fanVar, Stage stage, User user) {
+		
+		fanVar.menuItemPanel.setOnAction(e->{
+			navigateFanPanel(stage, user);
+		});
+		
+		fanVar.menuItemVendor.setOnAction(e->{
+			navigateFanVendor(stage, user);
+		});
+		
 		fanVar.menuItemLogOut.setOnAction(e->{
 			navigateLogin(stage);
 		});
 	}
+	
+	public void FanPanelHandler(FanPanelVar fanVar, Stage stage, User user) {
+		fanVar.menuItemHome.setOnAction(e->{
+			navigateFanHome(stage, user);
+		});
+		
+		fanVar.menuItemLogOut.setOnAction(e->{
+			navigateLogin(stage);
+		});
+	}
+	
+	public void FanVendorHandler(FanVendorVar fanVar, Stage stage, User user) {
+		fanVar.menuItemHome.setOnAction(e->{
+			navigateFanHome(stage, user);
+		});
+		
+		fanVar.menuItemLogOut.setOnAction(e->{
+			navigateLogin(stage);
+		});
+	}
+//	===========================================================================
 	
 	public void InfluencerPageHandler(InfluencerHomeVar influenceVar, Stage stage) {
 		influenceVar.menuItemLogOut.setOnAction(e->{
