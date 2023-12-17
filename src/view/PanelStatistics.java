@@ -112,6 +112,12 @@ public class PanelStatistics {
 		var.idCol.setPrefWidth(50);
 		var.usernameCol.setPrefWidth(250);
 		var.emailCol.setPrefWidth(250);
+		
+		var.title.setStyle("-fx-font-weight: bold;");
+		var.desc.setStyle("-fx-font-weight: bold;");
+		var.location.setStyle("-fx-font-weight: bold;");
+		var.startTime.setStyle("-fx-font-weight: bold;");
+		var.endTime.setStyle("-fx-font-weight: bold;");
 
 	}
 

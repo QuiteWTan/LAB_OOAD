@@ -56,7 +56,7 @@ public class InfluencerHomePage {
 		TableView<PanelHeader> table = new TableView<PanelHeader>();
 		TableColumn<PanelHeader, Integer> idCol = new TableColumn<>("Id");
 		TableColumn<PanelHeader, String> titleCol = new TableColumn<>("Title");
-		TableColumn<PanelHeader, String> statusCol = new TableColumn<>("Status");
+		TableColumn<PanelHeader, String> statusCol = new TableColumn<>("isFinished");
 		TableColumn<PanelHeader, Void> viewCol = new TableColumn<>("Detail");
 		TableColumn<PanelHeader, Void> finishCol = new TableColumn<>("Finish");
 		

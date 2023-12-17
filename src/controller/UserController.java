@@ -126,7 +126,7 @@ public class UserController {
 	}
 	
 	
-	//Validation logic
+	//Register Validation logic
 	
 	private Boolean validateUsername(RegisterVar var, String username) {
 		
