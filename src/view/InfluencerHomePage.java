@@ -225,7 +225,7 @@ public class InfluencerHomePage {
 		panelController.influencerHomeHandler(var, stage, user);
 		
 		stage.setScene(var.influencerHomeScene);
-		stage.setTitle("Login");
+		stage.setTitle("Home Page");
 		stage.setResizable(false);
 		
 	}
