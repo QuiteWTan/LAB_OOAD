@@ -143,7 +143,6 @@ public class InfluencerHomePage {
 							obsPanelList = FXCollections.observableArrayList(panelList);
 							var.table.setItems(obsPanelList);
 							var.table.refresh();
-							
 						});
 					}
 

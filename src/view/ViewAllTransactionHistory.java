@@ -2,27 +2,29 @@ package view;
 
 import java.util.ArrayList;
 
-import controller.UserController;
+import controller.TransactionController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import model.object.FanTransaction;
 import model.object.User;
+import model.object.TransactionDetail;
+import model.object.TransactionHeader;
 
 public class ViewAllTransactionHistory {
-	UserController uc = new UserController();
+	
+	TransactionController tc = new TransactionController();
+	User Fan;
 	
 	public class AllTransactionHistoryVar {
 		
@@ -34,10 +36,10 @@ public class ViewAllTransactionHistory {
 		MenuBar menuBar = new MenuBar();
 		Menu menu = new Menu("Menu");
 		
-		TableView<User> table = new TableView<User>();
-		TableColumn<User, Integer> itemName_col = new TableColumn<>("Item Name");
-		TableColumn<User, String> price_col= new TableColumn<>("Price");
-		TableColumn<User, String> quantity_col= new TableColumn<>("Quantity");
+		TableView<FanTransaction> table = new TableView<FanTransaction>();
+		TableColumn<FanTransaction, String> itemName_col = new TableColumn<>("Item Name");
+		TableColumn<FanTransaction, Integer> price_col= new TableColumn<>("Price");
+		TableColumn<FanTransaction, Integer> quantity_col= new TableColumn<>("Quantity");
 		public MenuItem AdminMenu = new MenuItem("Log Out");
 		
 		Label pageTitle = new Label("All History Transaction Page");
@@ -46,15 +48,16 @@ public class ViewAllTransactionHistory {
 	
 	private void initialize(AllTransactionHistoryVar var) {
         
-        ArrayList<User> transactionList = new ArrayList<>();
+        ArrayList<FanTransaction> transactionList = new ArrayList<>();
         
-        for (User user : transactionList) {
-        	var.table.getItems().add(user);
+        transactionList.addAll(tc.getAllTransactionByFan(2));
+        for (FanTransaction transaction : transactionList) {
+        	var.table.getItems().add(transaction);
 		}
         
-        var.itemName_col.setCellValueFactory(new PropertyValueFactory<>("username"));
-        var.price_col.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        var.quantity_col.setCellValueFactory(new PropertyValueFactory<>("email"));
+        var.itemName_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        var.price_col.setCellValueFactory(new PropertyValueFactory<>("price"));
+        var.quantity_col.setCellValueFactory(new PropertyValueFactory<>("quantity"));
        
         var.menuBar.getMenus().add(var.menu);
 		var.menu.getItems().add(var.AdminMenu);
@@ -77,9 +80,10 @@ public class ViewAllTransactionHistory {
         
 	}
 	
-	public ViewAllTransactionHistory(Stage stage) {
+	public ViewAllTransactionHistory(Stage stage, User user) {
+		this.Fan = user;
 		AllTransactionHistoryVar var = new AllTransactionHistoryVar();
-		uc.ViewAllTransactionHistory(var, stage);
+		tc.ViewAllTransactionHistory(var, stage);
 		initialize(var);
 		stage.setScene(var.scene);
 		stage.setTitle("View All Vendor Page");

@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 import model.database.UserModel;
+import model.database.itemModel;
+import model.object.Item;
 import model.object.User;
 import view.InfluencerHomePage;
 import view.InfluencerHomePage.InfluencerHomeVar;
@@ -16,8 +18,10 @@ import view.LoginPage;
 import view.LoginPage.LoginVar;
 import view.RegisterPage;
 import view.RegisterPage.RegisterVar;
+import view.VendorHomePage;
 import view.FanHomePage;
 import view.FanHomePage.HomeVar;
+import view.VendorHomePage.VendorVar;
 import view.ViewAccount;
 import view.ViewAllTransactionHistory;
 import view.ViewAllTransactionHistory.AllTransactionHistoryVar;
@@ -27,7 +31,7 @@ import view.ViewAllVendor.ViewVendorVar;
 public class UserController {
 	
 	UserModel userModel = new UserModel();
-	
+	itemModel ItemModel = new itemModel();
 	//view handler
 	
 	public void navigateLogin(Stage stage) {
@@ -43,7 +47,7 @@ public class UserController {
 	}
 	
 	public void navigateVendor(Stage stage) {
-		
+		new VendorHomePage(stage);
 	}
 	
 	public void navigateInfluencer(Stage stage, User user) {
@@ -54,9 +58,6 @@ public class UserController {
 		new ViewAllVendor(stage);
 	}
 	
-	public void navigateViewAllTransactionHistory(Stage stage) {
-		new ViewAllTransactionHistory(stage);
-	}
 	
 	public void loginHandler(LoginVar var, Stage stage) {
 		
@@ -137,14 +138,15 @@ public class UserController {
 		});
 	}
 	
-	public void ViewAllVendorPageHandler(ViewVendorVar var, Stage stage){
-		var.AdminMenu.setOnAction(e->{
-			navigateViewAllVendor(stage);
+	public void VendorPageHandler(VendorVar var, Stage stage){
+		var.menuItemLogOut.setOnAction(e->{
+			navigateLogin(stage);
 		});
 	}
-	public void ViewAllTransactionHistory(AllTransactionHistoryVar var, Stage stage){
+	
+	public void ViewAllVendorPageHandler(ViewVendorVar var, Stage stage){
 		var.AdminMenu.setOnAction(e->{
-			navigateViewAllTransactionHistory(stage);
+			navigateLogin(stage);
 		});
 	}
 	
@@ -228,7 +230,6 @@ public class UserController {
 	    Boolean passwordValid = validatePassword(var, password, confirmPassword);
 	    
 	    if(usernameValid && emailValid && passwordValid) {
-	    	
 	    	userModel.addUser(username, email, password, role);
 	    	
 	    	return true;
@@ -255,6 +256,12 @@ public class UserController {
 		
 	}
 	
+	public ArrayList<Item> getAllItems(Integer uId) {
+		ArrayList<Item> items = new ArrayList<>();
+		items.addAll(ItemModel.getAllItems(uId));
+		
+		return items;
+	}
 
 	
 //	private User currUser;

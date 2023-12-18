@@ -37,7 +37,6 @@ public class UserModel {
 		return userData;
 	}
 	
-	
 	public User getUser(Integer userId) {
 		
         Connect db = Connect.getInstance();

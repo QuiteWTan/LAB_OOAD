@@ -1,6 +1,7 @@
 package main;
 
 import controller.UserController;
+import controller.TransactionController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -15,8 +16,9 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		UserController uc = new UserController();
+		TransactionController tc = new TransactionController();
 		
-		uc.navigateViewAllTransactionHistory(primaryStage);
+		uc.navigateVendor(primaryStage);
 		primaryStage.show();
 	}
 
