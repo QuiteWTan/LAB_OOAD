@@ -56,7 +56,7 @@ public class InfluencerHomePage {
 		TableView<PanelHeader> table = new TableView<PanelHeader>();
 		TableColumn<PanelHeader, Integer> idCol = new TableColumn<>("Id");
 		TableColumn<PanelHeader, String> titleCol = new TableColumn<>("Title");
-		TableColumn<PanelHeader, String> statusCol = new TableColumn<>("Status");
+		TableColumn<PanelHeader, String> statusCol = new TableColumn<>("isFinished");
 		TableColumn<PanelHeader, Void> viewCol = new TableColumn<>("Detail");
 		TableColumn<PanelHeader, Void> finishCol = new TableColumn<>("Finish");
 		
@@ -106,9 +106,9 @@ public class InfluencerHomePage {
 				
 				return new TableCell<PanelHeader, Void>() {
 					
-					private final Button viewDetailButton = new Button("Detail");
+					private final Button Fa = new Button("Detail");
 					{
-						viewDetailButton.setOnMouseClicked(e->{
+						Fa.setOnMouseClicked(e->{
 							PanelHeader data = getTableView().getItems().get(getIndex());
 							panelController.openPopUp(data);
 						});
@@ -120,7 +120,7 @@ public class InfluencerHomePage {
 						if(empty) {
 							setGraphic(null);
 						} else {
-							setGraphic(viewDetailButton);
+							setGraphic(Fa);
 						}
 					}
 				};
@@ -224,7 +224,7 @@ public class InfluencerHomePage {
 		panelController.influencerHomeHandler(var, stage, user);
 		
 		stage.setScene(var.influencerHomeScene);
-		stage.setTitle("Login");
+		stage.setTitle("Home Page");
 		stage.setResizable(false);
 		
 	}

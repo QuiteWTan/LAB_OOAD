@@ -45,8 +45,7 @@ public class LoginPage {
 
 	}
 
-	private void initialize(LoginVar var) {
-		
+	private void initialize(LoginVar var) {			
 		//Menu
 		var.menuBar.getMenus().add(var.menu);
 		var.menu.getItems().add(var.menuItemRegister);

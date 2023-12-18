@@ -8,6 +8,8 @@ import model.database.PanelHeaderModel;
 import model.object.PanelHeader;
 import model.object.User;
 import view.InfluencerHomePage.InfluencerHomeVar;
+import view.PanelDetailView;
+import view.PanelDetailView.FanPanelDetail;
 import view.InfluencerHomePage;
 import view.PanelStatistics;
 import view.PanelStatistics.PSVar;
@@ -18,11 +20,26 @@ public class PanelController {
 	PanelDetailModel pd = new PanelDetailModel();
 	
 	//View Handler
+	//Maapkan cara barbarku, ntar di perbaiki - Tumewu
 	public void openPopUp(PanelHeader panel) {
 		new PanelStatistics(panel);
 	}
 	
+	public void openPopUpFan(PanelHeader panel, User user) {
+		new PanelDetailView(panel, user);
+	}
+	
 	public void assignData(PSVar var, PanelHeader panel) {
+		
+		var.titleData.setText(panel.getPanelTitle());
+		var.descData.setText(panel.getPanelDescription());
+		var.locationData.setText(panel.getLocation());
+		var.startTimeData.setText(panel.getStartTime());
+		var.endTimeData.setText(panel.getEndTime());
+		
+	}
+	
+	public void getPanelDetail(FanPanelDetail var, PanelHeader panel) {
 		
 		var.titleData.setText(panel.getPanelTitle());
 		var.descData.setText(panel.getPanelDescription());
@@ -57,6 +74,19 @@ public class PanelController {
 			
 		});
 		
+	}
+	
+	public void FanPanelDetailHandler(FanPanelDetail var, User user, PanelHeader panel) {
+		var.attendButton.setOnAction(e->{
+			Integer userId = user.getUserId();
+			Integer panelId = panel.getPanelId();
+			
+			Boolean attend = this.addAttendee(panelId, userId);
+			
+			if(attend == true) {
+				var.stage.close();
+			}
+		});
 	}
 	
 	//Validation Logic
@@ -161,6 +191,12 @@ public class PanelController {
 		
 		ph.addPanel(userId, panelTitle, panelDescription, location, startTime, endTime);
 		
+	}
+	
+	public Boolean addAttendee(Integer panelId, Integer userId) {
+		pd.addAttendee(panelId, userId);
+		
+		return true;
 	}
 	
 }
