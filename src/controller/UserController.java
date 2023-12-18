@@ -19,6 +19,7 @@ import view.RegisterPage;
 import view.RegisterPage.RegisterVar;
 import view.VendorHomePage;
 import view.AdminPage;
+import view.AdminPage.AdminVar;
 import view.FanHomePage;
 import view.FanHomePage.HomeVar;
 import view.FanPanelView;
@@ -344,140 +345,133 @@ public class UserController {
 		
 	// Account
 	private ArrayList<User> users;
-	
-	public ArrayList<Item> getAllItems(Integer uId) {
-		ArrayList<Item> items = new ArrayList<>();
-		items.addAll(ItemModel.getAllItems(uId));
+
+	public Scene showFanAccount(Stage stage, AdminVar var) {
 		
-		return items;
+		this.users = userModel.getAllUsersInRole("Fan");
+		String titleString = "Fan Accounts";
+
+		ViewAccount view = new ViewAccount(this.users, titleString);
+
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
+			this.users = userModel.getAllUsersInRole("Fan");
+			view.refreshUserList(this.users);
+		});
+
+		view.menuItemInfluencer.setOnAction(e -> {
+			var.adminScene = showInfluencerAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
+
+		view.menuItemFan.setOnAction(e -> {
+			var.adminScene = showFanAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
+
+		view.menuItemVendor.setOnAction(e -> {
+			var.adminScene = showVendorAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
+		
+		view.menuItemLogOut.setOnAction(e -> {
+			
+			navigateLogin(stage);
+			
+		});
+
+		return view.getViewScene();
+
 	}
 
+	public Scene showInfluencerAccount(Stage stage, AdminVar var) {
 		
-		public Scene showFanAccount() {
-			this.users = userModel.getAllUsersInRole("Fan");
-			String titleString = "Fan Accounts";
-			
-			ViewAccount view = new ViewAccount(this.users, titleString);
-			
-			view.setButtonClickHandler(() -> {
-				deleteSelectedUser(view.getSelectedUsers());
-				this.users = userModel.getAllUsersInRole("Fan");
-				view.refreshUserList(this.users);
-	        });
-	        
-	        return view.getViewScene();
+		this.users = userModel.getAllUsersInRole("Influencer");
+		String titleString = "Influencer Accounts";
 
-		}
-		
-		public Scene showInfluencerAccount() {
+		ViewAccount view = new ViewAccount(this.users, titleString);
+
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
 			this.users = userModel.getAllUsersInRole("Influencer");
-			String titleString = "Influencer Accounts";
-			
-			ViewAccount view = new ViewAccount(this.users, titleString);
-			
-			view.setButtonClickHandler(() -> {
-				deleteSelectedUser(view.getSelectedUsers());
-				this.users = userModel.getAllUsersInRole("Influencer");
-				view.refreshUserList(this.users);
-	        });
-	        
-	        
-	        return view.getViewScene();
-		}
+			view.refreshUserList(this.users);
+		});
+
+		view.menuItemInfluencer.setOnAction(e -> {
+			var.adminScene = showInfluencerAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
+
+		view.menuItemFan.setOnAction(e -> {
+			var.adminScene = showFanAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
+
+		view.menuItemVendor.setOnAction(e -> {
+			var.adminScene = showVendorAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
 		
-		public Scene showVendorAccount() {
+		view.menuItemLogOut.setOnAction(e -> {
+
+			navigateLogin(stage);
+
+		});
+
+		return view.getViewScene();
+	}
+
+	public Scene showVendorAccount(Stage stage, AdminVar var) {
+		
+		this.users = userModel.getAllUsersInRole("Vendor");
+		String titleString = "Vendor Accounts";
+
+		ViewAccount view = new ViewAccount(this.users, titleString);
+
+		view.setButtonClickHandler(() -> {
+			deleteSelectedUser(view.getSelectedUsers());
 			this.users = userModel.getAllUsersInRole("Vendor");
-			String titleString = "Vendor Accounts";
-			
-			ViewAccount view = new ViewAccount(this.users, titleString);
-			
-			view.setButtonClickHandler(() -> {
-				deleteSelectedUser(view.getSelectedUsers());
-				this.users = userModel.getAllUsersInRole("Vendor");
-				view.refreshUserList(this.users);
-	        });
-	        
-	        
-	        return view.getViewScene();
-			
-		}
+			view.refreshUserList(this.users);
+		});
+
+		view.menuItemInfluencer.setOnAction(e -> {
+			var.adminScene = showInfluencerAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
+
+		view.menuItemFan.setOnAction(e -> {
+			var.adminScene = showFanAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
+
+		view.menuItemVendor.setOnAction(e -> {
+			var.adminScene = showVendorAccount(stage, var);
+
+			stage.setScene(var.adminScene);
+		});
 		
-		public void deleteSelectedUser(ObservableList<User> users) {
-			for (User user : users) {
-				userModel.deleteUser(user.getUserId());	
-			}	
+		view.menuItemLogOut.setOnAction(e -> {
+
+			navigateLogin(stage);
+
+		});
+
+		return view.getViewScene();
+
+	}
+
+	public void deleteSelectedUser(ObservableList<User> users) {
+		for (User user : users) {
+			userModel.deleteUser(user.getUserId());
 		}
-	
-//	private User currUser;
-//	private Boolean isAdmin; 
-//	
-//	// Account
-//	private ArrayList<User> users;
-//	
-//	
-//	public UserController() {
-//		
-//		// Dummy User
-//		this.currUser = new User(1, "admin", "admin@gmail.com", "admin", "Admin");
-////		currUser = newcurrUser.getRole().equals("Admin") ? true : false;
-//		 User(1, "user1", "user1@gmail.com", "user1", "User");
-//		this.isAdmin = 
-//		this.users = new ArrayList<>();
-//	}
-//	
-//	public Scene showFanAccount() {
-//		this.users = userModel.getAllUsersInRole("Fan");
-//		String titleString = "Fan Accounts";
-//		
-//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-//		
-//		view.setButtonClickHandler(() -> {
-//			deleteSelectedUser(view.getSelectedUsers());
-//			this.users = userModel.getAllUsersInRole("Fan");
-//			view.refreshUserList(this.users);
-//        });
-//        
-//        return view.getViewScene();
-//
-//	}
-//	
-//	public Scene showInfluencerAccount() {
-//		this.users = userModel.getAllUsersInRole("Influencer");
-//		String titleString = "Influencer Accounts";
-//		
-//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-//		
-//		view.setButtonClickHandler(() -> {
-//			deleteSelectedUser(view.getSelectedUsers());
-//			this.users = userModel.getAllUsersInRole("Influencer");
-//			view.refreshUserList(this.users);
-//        });
-//        
-//        
-//        return view.getViewScene();
-//	}
-//	
-//	public Scene showVendorAccount() {
-//		this.users = userModel.getAllUsersInRole("Vendor");
-//		String titleString = "Vendor Accounts";
-//		
-//		ViewAccount view = new ViewAccount(this.users, titleString, this.isAdmin);
-//		
-//		view.setButtonClickHandler(() -> {
-//			deleteSelectedUser(view.getSelectedUsers());
-//			this.users = userModel.getAllUsersInRole("Vendor");
-//			view.refreshUserList(this.users);
-//        });
-//        
-//        
-//        return view.getViewScene();
-//		
-//	}
-//	
-//	public void deleteSelectedUser(ObservableList<User> users) {
-//		for (User user : users) {
-//			userModel.deleteUser(user.getUserId());	
-//		}	
-//	}
+	}
 	
 }
