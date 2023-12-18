@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import controller.PanelController;
 import controller.UserController;
+import controller.itemController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,14 +24,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.database.PanelHeaderModel;
+import model.object.Item;
 import model.object.PanelHeader;
 import model.object.User;
 import view.FanHomePage.HomeVar;
-import view.FanPanelView.FanPanelVar;
 
 public class FanVendorView {
-	ArrayList<PanelHeader> vendorList = new ArrayList<>();	
-	ObservableList<PanelHeader> obsVendor;
+	ArrayList<User> userList = new ArrayList<>();
+	ObservableList<User> obsVendor;
 	
 	UserController uc = new UserController();
 	PanelController panelController = new PanelController();
@@ -47,70 +49,98 @@ public class FanVendorView {
 		
 		MenuBar menuBar = new MenuBar();
 		Menu menu = new Menu("Menu");
-		public MenuItem menuItemHome = new MenuItem("Home");
+		public MenuItem menuItemPanel = new MenuItem("View Panels");
+		public MenuItem menuItemVendor = new MenuItem("View Vendors");
 		public MenuItem menuItemLogOut = new MenuItem("Log Out");
 		
-//		TableView<PanelHeader> vendorList = new TableView<PanelHeader>();
-//		TableColumn<Vendor, String> vendorID = new TableColumn<>("Vendor ID");		
-//		TableColumn<Vendor, Void> vendorDetail = new TableColumn<>("Detail");	
+		TableView<User> VendorTable = new TableView<User>();
+		TableColumn<User, Integer> id_col = new TableColumn<>("userId");
+		TableColumn<User, String> username_col= new TableColumn<>("username");
+		TableColumn<User, String> email_col= new TableColumn<>("email");
+		TableColumn<User, Void> action_col =  new TableColumn<>("action");
+		
+		TableView<Item> ItemTable = new TableView<Item>();
+		TableColumn<Item, Integer> itemId_col = new TableColumn<>("itemId");
+		TableColumn<Item, String> itemName_col= new TableColumn<>("itemName");
+		TableColumn<Item, String> itemDesc_col = new TableColumn<>("itemDescription");
+		TableColumn<Item, String> price_col = new TableColumn<>("price");
 		
 		Label pageTitle = new Label("Vendor Page");
-		Label vendorList = new Label("Vendor List");		
+		Label vendorList = new Label("Vendor List");
+		Label itemList = new Label("Item List");
 		Label error = new Label();
 	}
 	
 private void initialize(FanVendorVar var) {	
 		
-//		vendorList = 
-//		obsVendor = FXCollections.observableArrayList(vendorList;
+	    userList.addAll(uc.getAllVendor("Vendor"));
+	    obsVendor = FXCollections.observableArrayList(userList);
 		
 		var.menuBar.getMenus().add(var.menu);
-		var.menu.getItems().add(var.menuItemHome);
+		var.menu.getItems().add(var.menuItemPanel);
+		var.menu.getItems().add(var.menuItemVendor);
 		var.menu.getItems().add(var.menuItemLogOut);
 		
-//		var.vendorID.setCellValueFactory(new PropertyValueFactory<>("vendorId"));
-//		
-//		var.vendorDetail.setCellFactory(new Callback<TableColumn<PanelHeader,Void>, TableCell<PanelHeader,Void>>() {
-//			
-//			@Override
-//			public TableCell<PanelHeader, Void> call(TableColumn<PanelHeader, Void> param) {
-//				
-//				return new TableCell<PanelHeader, Void>() {
-//					
-//					private final Button viewDetailButton = new Button("View Detail");
-//					{
-//						viewDetailButton.setOnMouseClicked(e->{
-//							User userData = uc.getUserByEmail(fan.getEmail());
-//							PanelHeader data = getTableView().getItems().get(getIndex());
-//							panelController.openPopUpFan(data, userData);
-//						});
-//					}
-//					
-//					@Override
-//					protected void updateItem(Void item, boolean empty) {
-//						super.updateItem(item, empty);
-//						if(empty) {
-//							setGraphic(null);
-//						} else {
-//							setGraphic(viewDetailButton);
-//						}
-//					}
-//				};
-//			}
-//		});
+		var.username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+        var.id_col.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        var.email_col.setCellValueFactory(new PropertyValueFactory<>("email"));
+        
+        var.itemId_col.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        var.itemName_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        var.itemDesc_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        var.price_col.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        var.action_col.setCellFactory(new Callback<TableColumn<User,Void>, TableCell<User, Void>>() {		
+			@Override
+			public TableCell<User, Void> call(TableColumn<User, Void> param) {
+				
+				return new TableCell<User, Void>() {
+					private final Button SelectButton = new Button("Select");
+
+					{
+						
+						SelectButton.setOnMouseClicked(e ->{
+							User data = getTableView().getItems().get(getIndex());
+							itemController ic = new itemController();
+							
+							ArrayList<Item> itemList = ic.getAllItemsByVendor(data.getUserId());
+					        ObservableList<Item> itemList1 = FXCollections.observableArrayList(itemList);
+					        
+					        var.ItemTable.setItems(itemList1);
+					        var.ItemTable.refresh();
+						});
+						
+					}
+					
+					@Override
+					protected void updateItem(Void item, boolean empty) {
+						super.updateItem(item, empty);
+						if(empty) {
+							setGraphic(null);
+						} else {
+							setGraphic(SelectButton);
+						}
+					}
+				};
+			};
+			
+        });
 		
-//		for (PanelHeader panel : unfinishedPanel) {
-//			var.unfinishedTable.getItems().add(panel);
-//		}
+        var.VendorTable.setItems(obsVendor);
 		
-//		var.unfinishedTable.getColumns().addAll(var.panelID, var.isFinished, var.panelDetail);
+        var.VendorTable.getColumns().addAll(var.id_col, var.username_col,  var.email_col, var.action_col);
+    	var.ItemTable.getColumns().addAll(var.itemId_col, var.itemName_col, var.itemDesc_col, var.price_col);
 		
 		
-//		var.contentBox.getChildren().add(var.vendorList);
+    	var.contentBox.getChildren().add(var.VendorTable);
+    	var.contentBox2.getChildren().add(var.ItemTable);
 		
 		var.vendorContainer.getChildren().addAll(
 				var.pageTitle,
-				var.vendorList
+				var.vendorList,
+				var.VendorTable,
+				var.itemList,
+				var.ItemTable
 				);
 		
 		var.mainBox.getChildren().addAll(var.vendorContainer);
@@ -126,6 +156,24 @@ private void initialize(FanVendorVar var) {
 		var.vendorContainer.setMaxWidth(600);
 		
 		var.pageTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
+		
+		var.contentBox.setAlignment(Pos.CENTER);
+		var.contentBox.setMaxWidth(450);
+		var.contentBox2.setMaxWidth(600);
+		
+		var.VendorTable.setMaxHeight(150);
+		var.ItemTable.setMaxHeight(150);
+		
+		var.id_col.setPrefWidth(50);
+		var.username_col.setPrefWidth(200);        
+        var.email_col.setPrefWidth(200);
+        
+        var.itemId_col.setPrefWidth(200);
+    	var.itemName_col.setPrefWidth(200);
+    	var.itemDesc_col.setPrefWidth(200);
+        var.price_col.setPrefWidth(200);
+        
+        
 	}
 	
 	public FanVendorView(Stage stage, User user) {

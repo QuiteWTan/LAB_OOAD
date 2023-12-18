@@ -18,7 +18,7 @@ public class Main extends Application{
 		UserController uc = new UserController();
 		TransactionController tc = new TransactionController();
 		
-		uc.navigateVendor(primaryStage);
+		uc.navigateLogin(primaryStage);
 		primaryStage.show();
 	}
 

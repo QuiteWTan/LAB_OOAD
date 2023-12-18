@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.TextField;
+
 import java.util.ArrayList;
 
 import controller.UserController;
@@ -17,6 +17,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -77,7 +78,7 @@ public class VendorHomePage {
 
 	private void initialize(VendorVar var) {	
 		ArrayList<Item> itemList = new ArrayList<>();
-		itemList.addAll(uc.getAllItems(1));
+//		itemList.addAll(uc.getAllItems(1));
         
         for (Item item : itemList) {
         	var.ItemTable.getItems().add(item);
