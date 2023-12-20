@@ -59,6 +59,18 @@ public class Connect {
 		
 	}
 	
+	public Connection getConnection() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = DriverManager.getConnection(connection, username, password);
+			return con;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public void close() {
 		connect.close();
 	}

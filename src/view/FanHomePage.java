@@ -100,6 +100,7 @@ public class FanHomePage {
 						viewDetailButton.setOnMouseClicked(e->{
 							User userData = uc.getUserByEmail(fan.getEmail());
 							PanelHeader data = getTableView().getItems().get(getIndex());
+							
 							panelController.openPopUpFan(data, userData);
 						});
 					}

@@ -24,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.database.PanelHeaderModel;
+import model.database.itemModel;
 import model.object.Item;
 import model.object.PanelHeader;
 import model.object.User;
@@ -34,9 +35,10 @@ public class FanVendorView {
 	ObservableList<User> obsVendor;
 	
 	UserController uc = new UserController();
-	PanelController panelController = new PanelController();
-	PanelHeaderModel pd = new PanelHeaderModel();
+	itemController ic= new itemController();
+	itemModel im = new itemModel();
 	
+	Item vendorItem;
 	User fan;
 	
 	public class FanVendorVar {
@@ -62,8 +64,9 @@ public class FanVendorView {
 		TableView<Item> ItemTable = new TableView<Item>();
 		TableColumn<Item, Integer> itemId_col = new TableColumn<>("itemId");
 		TableColumn<Item, String> itemName_col= new TableColumn<>("itemName");
-		TableColumn<Item, String> itemDesc_col = new TableColumn<>("itemDescription");
-		TableColumn<Item, String> price_col = new TableColumn<>("price");
+//		TableColumn<Item, String> itemDesc_col = new TableColumn<>("itemDescription");
+//		TableColumn<Item, String> price_col = new TableColumn<>("price");
+		TableColumn<Item, Void> itemAction_col =  new TableColumn<>("action");
 		
 		Label pageTitle = new Label("Vendor Page");
 		Label vendorList = new Label("Vendor List");
@@ -87,8 +90,8 @@ private void initialize(FanVendorVar var) {
         
         var.itemId_col.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         var.itemName_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-        var.itemDesc_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-        var.price_col.setCellValueFactory(new PropertyValueFactory<>("price"));
+//        var.itemDesc_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+//        var.price_col.setCellValueFactory(new PropertyValueFactory<>("price"));
         
         var.action_col.setCellFactory(new Callback<TableColumn<User,Void>, TableCell<User, Void>>() {		
 			@Override
@@ -99,11 +102,12 @@ private void initialize(FanVendorVar var) {
 
 					{
 						
-						SelectButton.setOnMouseClicked(e ->{
+						SelectButton.setOnMouseClicked(e ->{							
 							User data = getTableView().getItems().get(getIndex());
 							itemController ic = new itemController();
+							itemModel im = new itemModel();
 							
-							ArrayList<Item> itemList = ic.getAllItemsByVendor(data.getUserId());
+							ArrayList<Item> itemList = ic.getAllItemsByVendor(data.getUserId());							
 					        ObservableList<Item> itemList1 = FXCollections.observableArrayList(itemList);
 					        
 					        var.ItemTable.setItems(itemList1);
@@ -125,11 +129,44 @@ private void initialize(FanVendorVar var) {
 			};
 			
         });
+        
+        var.itemAction_col.setCellFactory(new Callback<TableColumn<Item,Void>, TableCell<Item, Void>>() {		
+			@Override
+			public TableCell<Item, Void> call(TableColumn<Item, Void> param) {
+				
+				return new TableCell<Item, Void>() {
+					private final Button SelectButton = new Button("Select");
+
+					{
+						
+						SelectButton.setOnMouseClicked(e ->{
+							Item itemData = getTableView().getItems().get(getIndex());							
+							
+							ic.openPopUpItem(itemData, fan);
+						});
+						
+					}
+					
+					@Override
+					protected void updateItem(Void item, boolean empty) {
+						super.updateItem(item, empty);
+						if(empty) {
+							setGraphic(null);
+						} else {
+							setGraphic(SelectButton);
+						}
+					}
+				};
+			};
+			
+        });
+        
+        
 		
         var.VendorTable.setItems(obsVendor);
 		
         var.VendorTable.getColumns().addAll(var.id_col, var.username_col,  var.email_col, var.action_col);
-    	var.ItemTable.getColumns().addAll(var.itemId_col, var.itemName_col, var.itemDesc_col, var.price_col);
+    	var.ItemTable.getColumns().addAll(var.itemId_col, var.itemName_col, var.itemAction_col);
 		
 		
     	var.contentBox.getChildren().add(var.VendorTable);
@@ -170,20 +207,18 @@ private void initialize(FanVendorVar var) {
         
         var.itemId_col.setPrefWidth(200);
     	var.itemName_col.setPrefWidth(200);
-    	var.itemDesc_col.setPrefWidth(200);
-        var.price_col.setPrefWidth(200);
         
         
 	}
 	
 	public FanVendorView(Stage stage, User user) {
 		FanVendorVar var = new FanVendorVar();
-		
 		this.fan = user;
+//		this.vendorItem = item;
 		
 		initialize(var);
 		style(var);
-		uc.FanVendorHandler(var, stage, user);
+//		uc.FanVendorHandler(var, stage);
 		
 		stage.setScene(var.homeScene);
 		stage.setTitle("User Homepage");

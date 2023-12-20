@@ -1,20 +1,24 @@
 package model.database;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+
+
 
 import database.Connect;
 
 public class TransactionHeaderModel {
 
-	public boolean AddTransactionHeader(Integer userId) {
-		String query = String.format("INSERT INTO users VALUES %d", userId );
+	public Boolean AddTransactionHeader(Integer userId) {
+		String query = String.format("INSERT INTO transactionheaders (userId) VALUES (%d)", userId );
 		
 		Connect db = Connect.getInstance();
 		db.execute(query);
 		return true;
-	}
+	}	
 	
 	public ArrayList<Integer> GetAllIDByUser(Integer UserId){
 		
@@ -58,6 +62,25 @@ public class TransactionHeaderModel {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	public Integer getLatestTransactionId() {
+		String query = String.format("SELECT transactionId FROM transactionheaders ORDER BY transactionId DESC LIMIT 1");
+		Connect db = Connect.getInstance();
+		ResultSet data = db.selectData(query);
+		
+		Integer latestTransactionId = 0;
+		try {
+			if(data.next()) {
+				latestTransactionId = data.getInt("transactionId");
+				return latestTransactionId;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 
 }

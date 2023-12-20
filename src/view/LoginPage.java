@@ -37,7 +37,7 @@ public class LoginPage {
 		public Label error = new Label();
 		
 		//Input Field
-		public TextField emailInput = new TextField();
+		public TextField emailInput = new TextField("test1@email.com");
 		public PasswordField passInput = new PasswordField();
 		
 		//Button
@@ -46,6 +46,8 @@ public class LoginPage {
 	}
 
 	private void initialize(LoginVar var) {			
+		var.passInput.setText("test1231");
+		
 		//Menu
 		var.menuBar.getMenus().add(var.menu);
 		var.menu.getItems().add(var.menuItemRegister);

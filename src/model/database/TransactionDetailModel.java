@@ -12,7 +12,7 @@ public class TransactionDetailModel {
 
 	public void addTransactionDetail(Integer transactionId, Integer itemId, Integer quantity) {
 		
-		String query = String.format("INSERT INTO `transactiondetails` VALUES (%d, %d, %d", transactionId, itemId, quantity);
+		String query = String.format("INSERT INTO `transactiondetails` VALUES (%d, %d, %d)", transactionId, itemId, quantity);
 		
 		Connect db = Connect.getInstance();
 		
