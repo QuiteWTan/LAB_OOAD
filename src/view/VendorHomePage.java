@@ -1,9 +1,6 @@
 package view;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/QuiteWTan/LAB_OOAD.git
 import java.util.ArrayList;
 
 import controller.UserController;
@@ -86,13 +83,8 @@ public class VendorHomePage {
 		var.ItemTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		
 		ArrayList<Item> itemList = new ArrayList<>();
-<<<<<<< HEAD
-		itemList.addAll(uc.getAllItems(2));
+		itemList.addAll(ic.getAllItems(2));
 		Integer i;
-=======
-//		itemList.addAll(uc.getAllItems(1));
-        
->>>>>>> branch 'master' of https://github.com/QuiteWTan/LAB_OOAD.git
         for (Item item : itemList) {
         	var.ItemTable.getItems().add(item);
 		}
