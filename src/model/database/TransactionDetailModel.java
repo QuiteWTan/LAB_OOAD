@@ -5,14 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.Connect;
-import model.object.FanTransaction;
 import model.object.TransactionDetail;
 
 public class TransactionDetailModel {
 
 	public void addTransactionDetail(Integer transactionId, Integer itemId, Integer quantity) {
 		
-		String query = String.format("INSERT INTO `transactiondetails` VALUES (%d, %d, %d)", transactionId, itemId, quantity);
+		String query = String.format("INSERT INTO `transactiondetails` (transactionId, itemId, quantity) VALUES (%d, %d, %d)", transactionId, itemId, quantity);
 		
 		Connect db = Connect.getInstance();
 		

@@ -1,15 +1,12 @@
 package controller;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.database.UserModel;
 import model.database.itemModel;
-import model.object.Item;
 import model.object.User;
 import view.InfluencerHomePage;
 import view.InfluencerHomePage.InfluencerHomeVar;
@@ -26,8 +23,6 @@ import view.FanVendorView;
 import view.FanVendorView.FanVendorVar;
 import view.VendorHomePage.VendorVar;
 import view.ViewAccount;
-import view.ViewAllTransactionHistory;
-import view.ViewAllTransactionHistory.AllTransactionHistoryVar;
 import view.ViewAllVendor;
 import view.ViewAllVendor.ViewVendorVar;
 
@@ -195,36 +190,7 @@ public class UserController {
 		});
 	}
 	
-//	public void adminHandler(AdminVar var, Stage stage) {
-//	
-//	var.menuItemFan.setOnAction(e->{
-//		
-//		var.dataContainer = this.showFanAccount();
-//		navigateAdmin(stage);
-//		
-//	});
-//	
-//	var.menuItemInfluencer.setOnAction(e->{
-//		
-//		var.dataContainer = this.showInfluencerAccount();
-//		navigateAdmin(stage);
-//		
-//	});
-//	
-//	var.menuItemVendor.setOnAction(e->{
-//		
-//		var.dataContainer = this.showVendorAccount();
-//		navigateAdmin(stage);
-//		
-//	});
-//	
-//	var.menuItemLogOut.setOnAction(e->{
-//		
-//		navigateLogin(stage);
-//		
-//	});
-//	
-//}
+
 	//Register Validation logic
 	
 	private Boolean validateUsername(RegisterVar var, String username) {

@@ -3,22 +3,14 @@ package controller;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.stage.Stage;
 
 import model.database.TransactionDetailModel;
 import model.database.TransactionHeaderModel;
 import model.database.itemModel;
-import model.database.TransactionDetailModel;
-import model.database.TransactionHeaderModel;
 import model.object.Item;
-import model.object.PanelHeader;
-import model.object.TransactionHeader;
 import model.object.User;
 import view.ItemDetailView;
 import view.ItemDetailView.ItemDetailVar;
-import view.PanelDetailView;
-import view.PanelDetailView.FanPanelDetail;
-import model.object.User;
 import view.VendorHomePage.VendorVar;
 
 public class itemController {
@@ -53,13 +45,6 @@ public class itemController {
 		return itemList;
 	}
 	
-	public boolean buyItem(Integer amount) {
-		if(amount <= 0) {
-			return false;
-		}
-		return true;
-	}
-	
 	public void openPopUpItem(Item item, User user) {
 		new ItemDetailView(item, user);
 	}
@@ -79,16 +64,15 @@ public class itemController {
 			Integer itemId = item.getItemId();
 			Integer userId = user.getUserId();
 			
-			if(buyItem(boughtAmount)) {
+			if(boughtAmount > 0) {
 				Boolean transaction = addTransactionHeader(userId);
 				
 				if(transaction) {
-					Integer transactionId = getTransactionId();
+					Integer transactionId = transactionHeaderModel.getLatestTransactionId();
 					Boolean buy = addTransactionDetail(transactionId, itemId, boughtAmount);
 					if(buy) {
 						var.stage.close();
 					}
-					var.stage.close();
 				} else {
 					var.error.setText("There was an error with processing your request.");
 				}
@@ -98,10 +82,6 @@ public class itemController {
 				var.error.setText("Quantity must be more than 0!");
 			}
 		});
-	}
-	
-	public Integer getTransactionId() {
-		return transactionHeaderModel.getLatestTransactionId();
 	}
 	
 	

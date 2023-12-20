@@ -20,7 +20,6 @@ public class PanelController {
 	PanelDetailModel pd = new PanelDetailModel();
 	
 	//View Handler
-	//Maapkan cara barbarku, ntar di perbaiki - Tumewu
 	public void openPopUp(PanelHeader panel) {
 		new PanelStatistics(panel);
 	}

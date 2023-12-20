@@ -64,8 +64,6 @@ public class FanVendorView {
 		TableView<Item> ItemTable = new TableView<Item>();
 		TableColumn<Item, Integer> itemId_col = new TableColumn<>("itemId");
 		TableColumn<Item, String> itemName_col= new TableColumn<>("itemName");
-//		TableColumn<Item, String> itemDesc_col = new TableColumn<>("itemDescription");
-//		TableColumn<Item, String> price_col = new TableColumn<>("price");
 		TableColumn<Item, Void> itemAction_col =  new TableColumn<>("action");
 		
 		Label pageTitle = new Label("Vendor Page");
@@ -90,8 +88,6 @@ private void initialize(FanVendorVar var) {
         
         var.itemId_col.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         var.itemName_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-//        var.itemDesc_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-//        var.price_col.setCellValueFactory(new PropertyValueFactory<>("price"));
         
         var.action_col.setCellFactory(new Callback<TableColumn<User,Void>, TableCell<User, Void>>() {		
 			@Override
@@ -214,11 +210,10 @@ private void initialize(FanVendorVar var) {
 	public FanVendorView(Stage stage, User user) {
 		FanVendorVar var = new FanVendorVar();
 		this.fan = user;
-//		this.vendorItem = item;
 		
 		initialize(var);
 		style(var);
-//		uc.FanVendorHandler(var, stage);
+		uc.FanVendorHandler(var, stage, user);
 		
 		stage.setScene(var.homeScene);
 		stage.setTitle("User Homepage");
