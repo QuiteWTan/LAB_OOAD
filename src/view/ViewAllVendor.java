@@ -58,7 +58,7 @@ public class ViewAllVendor {
 		TableColumn<Item, String> itemDesc_col = new TableColumn<>("itemDescription");
 		TableColumn<Item, String> price_col = new TableColumn<>("price");				
 	}
-	
+
 	private void initialize(ViewVendorVar var) {
         
         ArrayList<User> userList = new ArrayList<>();
@@ -92,7 +92,7 @@ public class ViewAllVendor {
 							
 							ArrayList<Item> itemList = ic.getAllItemsByVendor(data.getUserId());
 					        ObservableList<Item> itemList1 = FXCollections.observableArrayList(itemList);
-					        
+					       
 					        var.ItemTable.setItems(itemList1);
 					        var.ItemTable.refresh();
 						});

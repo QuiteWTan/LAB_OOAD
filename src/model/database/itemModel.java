@@ -20,6 +20,7 @@ public class itemModel {
 		
 		try {
 			while(rs.next()) {
+				
 				Integer itemId = rs.getInt("itemId");
 				Integer userId = rs.getInt("userId");
 				String itemName = rs.getString("itemName");
@@ -37,7 +38,7 @@ public class itemModel {
 	}
 	
 	public Item getItem(Integer Id) {
-		
+	
 		String query = String.format("SELECT * FROM `items` WHERE itemId = %d", Id);
 		
 		Connect db = Connect.getInstance();
@@ -64,8 +65,8 @@ public class itemModel {
 	}
 	
 	public void addItem(Integer userId, String itemName, String itemDescription, Integer price) {
-		
-		String query = String.format("INSERT INTO `items` VALUES (%d, '%s', '%s' , %d", userId, itemName, itemDescription, price);
+		System.out.println("masuk");
+		String query = String.format("INSERT INTO `items` ( `userId`, `itemName`, `itemDescription`, `price`) VALUES (%d, '%s', '%s' , %d)", userId, itemName, itemDescription, price);
 		
 		Connect db = Connect.getInstance();
 		

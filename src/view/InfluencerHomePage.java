@@ -84,7 +84,7 @@ public class InfluencerHomePage {
 		// Button
 		public Button submitButton = new Button("Add");
 	}
-	
+
 	private void initialize(InfluencerHomeVar var) {
 		
 		panelList = panelController.getAllPanelByInfluencer(influencer.getUserId());
@@ -145,7 +145,6 @@ public class InfluencerHomePage {
 							var.table.refresh();
 						});
 					}
-
 					@Override
 					protected void updateItem(Void item, boolean empty) {
 						super.updateItem(item, empty);

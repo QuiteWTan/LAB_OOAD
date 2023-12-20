@@ -22,7 +22,7 @@ public class TransactionHeaderModel {
 		String query = String.format("SELECT transactionId FROM transactionheaders where userId = '%d' ", UserId);
 		Connect db = Connect.getInstance();
 		ResultSet data = db.selectData(query);
-		
+	
 		try {
 			while(data.next()) {
 				Integer transactionID = data.getInt("transactionId");;
@@ -59,5 +59,5 @@ public class TransactionHeaderModel {
 		}
 		return true;
 	}
-
+	
 }

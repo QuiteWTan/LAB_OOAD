@@ -36,7 +36,7 @@ public class TransactionController {
 		for(TransactionDetail td : transactionDetailList) {
 			itemList.add(im.getItem(td.getItemId()));
 		}
-		
+	
 		for(int i =0;i < transactionHeaderList.size();i++) {
 			ft.add(new FanTransaction(itemList.get(i).getItemName(),itemList.get(i).getPrice(), transactionDetailList.get(i).getQuantity()));
 		}
