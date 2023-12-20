@@ -1,5 +1,9 @@
 package view;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/QuiteWTan/LAB_OOAD.git
 import java.util.ArrayList;
 
 import controller.UserController;
@@ -20,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -81,8 +86,13 @@ public class VendorHomePage {
 		var.ItemTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		
 		ArrayList<Item> itemList = new ArrayList<>();
+<<<<<<< HEAD
 		itemList.addAll(uc.getAllItems(2));
 		Integer i;
+=======
+//		itemList.addAll(uc.getAllItems(1));
+        
+>>>>>>> branch 'master' of https://github.com/QuiteWTan/LAB_OOAD.git
         for (Item item : itemList) {
         	var.ItemTable.getItems().add(item);
 		}

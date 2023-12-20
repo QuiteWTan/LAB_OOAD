@@ -11,46 +11,29 @@ import javafx.stage.Stage;
 public class AdminPage {
 
 	UserController userController = new UserController();
-	
+
 	public class AdminVar {
-		
-		Scene adminScene;
-//		BorderPane mainContainer = new BorderPane();
-//		public BorderPane dataContainer;
-		
-//		MenuBar menuBar = new MenuBar();
-//		Menu menu = new Menu("Menu");
-//		public MenuItem menuItemFan = new MenuItem("Fan Account");
-//		public MenuItem menuItemInfluencer = new MenuItem("Influencer Account");
-//		public MenuItem menuItemVendor = new MenuItem("VendorAccount");
-//		public MenuItem menuItemLogOut = new MenuItem("Log Out");
-		
+
+		public Scene adminScene;
+
 	}
-	
-	private void initialize(AdminVar var) {
-		
-//		var.menu.getItems().addAll(var.menuItemFan, var.menuItemInfluencer, var.menuItemVendor, var.menuItemLogOut);
-//		var.menuBar.getMenus().add(var.menu);
-		
-//		var.dataContainer = userController.showFanAccount();
-//		var.mainContainer.setTop(var.menuBar);
-//		var.mainContainer.setCenter(var.dataContainer);
-		
-		var.adminScene = userController.showFanAccount();
+
+	private void initialize(Stage stage, AdminVar var) {
+
+		var.adminScene = userController.showFanAccount(stage, var);
+
 	}
-	
+
 	public AdminPage(Stage stage) {
-		
+
 		AdminVar var = new AdminVar();
-		
-		initialize(var);
-		
-//		userController.adminHandler(var, stage);
-		
+
+		initialize(stage, var);
+
 		stage.setScene(var.adminScene);
 		stage.setTitle("Admin Page");
 		stage.setResizable(false);
-		
+
 	}
-	
+
 }
