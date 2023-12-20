@@ -40,7 +40,7 @@ public class ViewAllTransactionHistory {
 		TableColumn<FanTransaction, String> itemName_col = new TableColumn<>("Item Name");
 		TableColumn<FanTransaction, Integer> price_col= new TableColumn<>("Price");
 		TableColumn<FanTransaction, Integer> quantity_col= new TableColumn<>("Quantity");
-		public MenuItem AdminMenu = new MenuItem("Log Out");
+		public MenuItem MenuItemLogout = new MenuItem("Log Out");
 		
 		Label pageTitle = new Label("All History Transaction Page");
 		
@@ -50,7 +50,8 @@ public class ViewAllTransactionHistory {
         
         ArrayList<FanTransaction> transactionList = new ArrayList<>();
         
-        transactionList.addAll(tc.getAllTransactionByFan(2));
+        transactionList.addAll(tc.getAllTransactionByFan(Fan.getUserId()));
+        
         for (FanTransaction transaction : transactionList) {
         	var.table.getItems().add(transaction);
 		}
@@ -60,7 +61,7 @@ public class ViewAllTransactionHistory {
         var.quantity_col.setCellValueFactory(new PropertyValueFactory<>("quantity"));
        
         var.menuBar.getMenus().add(var.menu);
-		var.menu.getItems().add(var.AdminMenu);
+		var.menu.getItems().add(var.MenuItemLogout);
 		
         var.mainContainer.setTop(var.menuBar);
         var.mainContainer.setCenter(var.vendorTable);

@@ -9,6 +9,8 @@ import model.database.TransactionHeaderModel;
 import model.database.itemModel;
 import model.object.Item;
 import model.object.User;
+import view.ItemDetailPopup;
+import view.ItemDetailPopup.ItemDetailPopupVar;
 import view.ItemDetailView;
 import view.ItemDetailView.ItemDetailVar;
 import view.VendorHomePage.VendorVar;
@@ -114,9 +116,8 @@ public class itemController {
 		im.deleteItem(itemId);
 	}
 	
-	
-//	di add usernya
-	public void addItem( VendorVar var) {
+
+	public void addItem( VendorVar var, User Vendor) {
 		itemModel im = new itemModel();
 		
 		var.insertButton.setOnMouseClicked(e -> {			
@@ -142,7 +143,7 @@ public class itemController {
 //			di add user idnya
 			
 			im.addItem(2, itemName, itemDesc, itemPrice);
-			ArrayList<Item> itemList = getAllItemsByVendor(2);
+			ArrayList<Item> itemList = getAllItemsByVendor(Vendor.getUserId());
 	        ObservableList<Item> itemList1 = FXCollections.observableArrayList(itemList);
 	        
 			var.ItemTable.setItems(itemList1);
@@ -152,10 +153,7 @@ public class itemController {
 	
 	}
 	
-//	di add usernya
-	
-//	dikasih user parameter
-	public void updateItem(VendorVar var) {
+	public void updateItem(VendorVar var, User Vendor) {
 		itemModel im = new itemModel();
 		var.updateButton.setOnMouseClicked(e -> {
 			Item item = var.ItemTable.getSelectionModel().getSelectedItem(); 
@@ -168,15 +166,26 @@ public class itemController {
 			
 			String itemName = var.itemName_tf.getText();
 			String itemDesc = var.itemDescription_tf.getText();
-//			di add user idnya
+
 			im.setItemPrice(priceTemp, item.getItemId());
 			
-			ArrayList<Item> itemList = getAllItemsByVendor(2);
+			ArrayList<Item> itemList = getAllItemsByVendor(Vendor.getUserId());
 	        ObservableList<Item> itemList1 = FXCollections.observableArrayList(itemList);
 	        
 			var.ItemTable.setItems(itemList1);
 			var.ItemTable.refresh();
 		});
+		
+	}
+	
+	public void showItemDetail(Item item) {
+		new ItemDetailPopup(item);
+	}
+	
+	public void assignData(ItemDetailPopupVar var, Item item) {
+		var.itemName.setText("Item Name : " + item.getItemName());
+		var.itemDesc.setText("Item Description : " + item.getItemDescription());
+		var.itemPrice.setText("Item Price : " + item.getPrice());
 		
 	}
 }

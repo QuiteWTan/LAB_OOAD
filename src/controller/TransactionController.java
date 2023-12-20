@@ -50,7 +50,7 @@ public class TransactionController {
 	}
 	
 	public void ViewAllTransactionHistory(AllTransactionHistoryVar var, Stage stage){
-		var.AdminMenu.setOnAction(e->{
+		var.MenuItemLogout.setOnAction(e->{
 			uc.navigateLogin(stage);
 		});
 	}

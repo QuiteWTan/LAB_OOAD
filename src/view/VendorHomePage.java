@@ -7,8 +7,6 @@ import controller.UserController;
 import controller.itemController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +19,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -67,12 +64,14 @@ public class VendorHomePage {
 		MenuBar menuBar = new MenuBar();
 		Menu menu = new Menu("Menu");
 		public MenuItem menuItemLogOut = new MenuItem("Log Out");
+		public MenuItem menuItemPanel = new MenuItem("Vendor Home Page");
 		
 		public TableView<Item> ItemTable = new TableView<Item>();
 		TableColumn<Item, Integer> itemName_col = new TableColumn<>("Item Name");
 		TableColumn<Item, String> itemPrice_col = new TableColumn<>("Item Price");
 		TableColumn<Item, String> itemDesc_col = new TableColumn<>("Item Description");
 		TableColumn<Item, Void> delete_col = new TableColumn<>("Delete");
+		TableColumn<Item, Void> detail_col = new TableColumn<>("Details");
 		Label pageTitle = new Label("Vendor Home Page");
 		Label upcoming = new Label("Item Table");
 		
@@ -83,17 +82,46 @@ public class VendorHomePage {
 		var.ItemTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		
 		ArrayList<Item> itemList = new ArrayList<>();
-		itemList.addAll(ic.getAllItems(2));
+		itemList.addAll(ic.getAllItems(Vendor.getUserId()));
 		Integer i;
         for (Item item : itemList) {
         	var.ItemTable.getItems().add(item);
 		}
 		var.menuBar.getMenus().add(var.menu);
+		var.menu.getItems().add(var.menuItemPanel);
 		var.menu.getItems().add(var.menuItemLogOut);
 		
 		var.itemName_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-		var.itemPrice_col.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
-		var.itemDesc_col.setCellValueFactory(new PropertyValueFactory<>("price"));
+		var.itemPrice_col.setCellValueFactory(new PropertyValueFactory<>("price"));
+		var.itemDesc_col.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
+		var.detail_col.setCellFactory(new Callback<TableColumn<Item,Void>, TableCell<Item, Void>>() {		
+			@Override
+			public TableCell<Item, Void> call(TableColumn<Item, Void> param) {
+				
+				return new TableCell<Item, Void>() {
+					private final Button DetailButton = new Button("Details");
+
+					{
+						
+						DetailButton.setOnMouseClicked(e ->{
+							Item data = getTableView().getItems().get(getIndex());
+							ic.showItemDetail(data);
+						});
+					
+					}
+					
+					@Override
+					protected void updateItem(Void item, boolean empty) {
+						super.updateItem(item, empty);
+						if(empty) {
+							setGraphic(null);
+						} else {
+							setGraphic(DetailButton);
+						}
+					}
+				};
+			};
+		});
 		var.delete_col.setCellFactory(new Callback<TableColumn<Item,Void>, TableCell<Item, Void>>() {		
 			@Override
 			public TableCell<Item, Void> call(TableColumn<Item, Void> param) {
@@ -162,7 +190,7 @@ public class VendorHomePage {
 			);
 		
 		var.formBox.getChildren().addAll(var.insertFormBox, var.updateFormBox);
-		var.ItemTable.getColumns().addAll(var.itemName_col, var.itemPrice_col, var.itemDesc_col, var.delete_col);
+		var.ItemTable.getColumns().addAll(var.itemName_col, var.itemPrice_col, var.itemDesc_col,var.detail_col, var.delete_col);
 	
 		var.homeContainer.getChildren().addAll(
 				var.pageTitle,
@@ -196,15 +224,14 @@ public class VendorHomePage {
 		var.updateItemName_label.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 16px;");
 	}
 	
-	public VendorHomePage(Stage stage) {
+	public VendorHomePage(User user, Stage stage) {
 		VendorVar var = new VendorVar();
-		
+		this.Vendor = user;
 		initialize(var);
 		style(var);
-		uc.VendorPageHandler(var,stage);
-//		Dikasih user parameter
-		ic.addItem(var);
-		ic.updateItem(var);
+		uc.VendorPageHandler(var,stage, user);
+		ic.addItem(var,this.Vendor);
+		ic.updateItem(var,this.Vendor);
 		stage.setScene(var.homeScene);
 		stage.setTitle("User Homepage");
 		stage.show();

@@ -23,8 +23,6 @@ import view.FanVendorView;
 import view.FanVendorView.FanVendorVar;
 import view.VendorHomePage.VendorVar;
 import view.ViewAccount;
-import view.ViewAllVendor;
-import view.ViewAllVendor.ViewVendorVar;
 
 public class UserController {
 	
@@ -51,17 +49,14 @@ public class UserController {
 	
 //	========================================================
 	
-	public void navigateVendor(Stage stage) {
-		new VendorHomePage(stage);
+	public void navigateVendor(Stage stage, User user) {
+		new VendorHomePage(user, stage);
 	}
 	
 	public void navigateInfluencer(Stage stage, User user) {
 		new InfluencerHomePage(stage, user);
 	}
 	
-	public void navigateViewAllVendor(Stage stage) {
-		new ViewAllVendor(stage);
-	}
 	
 	public void navigateAdmin(Stage stage) {
 		
@@ -95,7 +90,7 @@ public class UserController {
 			if(user != null) {
 				
 				if(user.getPassword().equals(password) && user.getRole().equals("Vendor")) {
-					navigateVendor(stage);
+					navigateVendor(stage, user);
 					
 				} else if (user.getPassword().equals(password) && user.getRole().equals("Influencer")) {
 					navigateInfluencer(stage, user);
@@ -170,6 +165,7 @@ public class UserController {
 			navigateLogin(stage);
 		});
 	}
+	
 //	===========================================================================
 	
 	public void InfluencerPageHandler(InfluencerHomeVar influenceVar, Stage stage) {
@@ -178,14 +174,12 @@ public class UserController {
 		});
 	}
 	
-	public void VendorPageHandler(VendorVar var, Stage stage){
-		var.menuItemLogOut.setOnAction(e->{
-			navigateLogin(stage);
+	public void VendorPageHandler(VendorVar var, Stage stage, User user){
+		var.menuItemPanel.setOnAction(e->{
+			navigateVendor(stage, user);
 		});
-	}
-	
-	public void ViewAllVendorPageHandler(ViewVendorVar var, Stage stage){
-		var.AdminMenu.setOnAction(e->{
+		
+		var.menuItemLogOut.setOnAction(e->{
 			navigateLogin(stage);
 		});
 	}
