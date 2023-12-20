@@ -79,10 +79,12 @@ public class ViewAllTransactionHistory {
         var.scene = new Scene(var.mainContainer, 800, 600);
         
 	}
-	
+
 	public ViewAllTransactionHistory(Stage stage, User user) {
 		this.Fan = user;
 		AllTransactionHistoryVar var = new AllTransactionHistoryVar();
+		
+//		dikasih user parameter
 		tc.ViewAllTransactionHistory(var, stage);
 		initialize(var);
 		stage.setScene(var.scene);

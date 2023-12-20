@@ -26,7 +26,7 @@ public class TransactionHeaderModel {
 		String query = String.format("SELECT transactionId FROM transactionheaders where userId = '%d' ", UserId);
 		Connect db = Connect.getInstance();
 		ResultSet data = db.selectData(query);
-		
+	
 		try {
 			while(data.next()) {
 				Integer transactionID = data.getInt("transactionId");;
@@ -64,6 +64,7 @@ public class TransactionHeaderModel {
 		return true;
 	}
 	
+<<<<<<< HEAD
 	public Integer getLatestTransactionId() {
 		String query = String.format("SELECT transactionId FROM transactionheaders ORDER BY transactionId DESC LIMIT 1");
 		Connect db = Connect.getInstance();
@@ -83,4 +84,6 @@ public class TransactionHeaderModel {
 		return 0;
 	}
 
+=======
+>>>>>>> branch 'master' of https://github.com/QuiteWTan/LAB_OOAD
 }

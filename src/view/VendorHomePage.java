@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import controller.UserController;
 import controller.itemController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
+
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,14 +28,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.database.PanelHeaderModel;
 import model.object.Item;
 import model.object.User;
 
 public class VendorHomePage {
 
 	UserController uc = new UserController();
-	
+	itemController ic = new itemController();
+	User Vendor;
 	
 	public class VendorVar {
 		Scene homeScene;
@@ -44,42 +48,43 @@ public class VendorHomePage {
 		Label InsertFormTitle = new Label("Insert Item");
 		
 		Label itemName_label = new Label("Item Name");
-		TextField itemName_tf = new TextField();
-		Label itemDescription_label = new Label("Item Label");
-		TextField itemDescription_tf = new TextField();
-		Label itemPrice_label = new Label("Item Label");
-		TextField itemPrice_tf = new TextField();
-		Label insertErrorMessage_label = new Label();
-		Button insertButton = new Button("Insert");
-		
+		public TextField itemName_tf = new TextField();
+		Label itemDescription_label = new Label("Item Description");
+		public TextField itemDescription_tf = new TextField();
+		Label itemPrice_label = new Label("Item Price");
+		public TextField itemPrice_tf = new TextField();
+		public Label insertErrorMessage_label = new Label();
+		public Button insertButton = new Button("Insert");
+	
 		Label UpdateFormTitle = new Label("Update Item");
 		
-		Label updateItemName_label = new Label("Item Name");
-		TextField updateItemName_tf = new TextField();
+		Label updateItemName_label = new Label("Select the item table row !");
 		Label updateItemPrice_label = new Label("Item Price");
-		TextField updateItemPrice_tf = new TextField();
-		Label updateErrorMessage_label = new Label();
-		Button updateButton = new Button("Update");;
+		public TextField updateItemPrice_tf = new TextField();
+		public Label updateErrorMessage_label = new Label();
+		public Button updateButton = new Button("Update");;
 		
 		MenuBar menuBar = new MenuBar();
 		Menu menu = new Menu("Menu");
 		public MenuItem menuItemLogOut = new MenuItem("Log Out");
 		
-		TableView<Item> ItemTable = new TableView<Item>();
+		public TableView<Item> ItemTable = new TableView<Item>();
 		TableColumn<Item, Integer> itemName_col = new TableColumn<>("Item Name");
 		TableColumn<Item, String> itemPrice_col = new TableColumn<>("Item Price");
 		TableColumn<Item, String> itemDesc_col = new TableColumn<>("Item Description");
-		TableColumn<Item, Void> action_col = new TableColumn<>("Action");
-		
+		TableColumn<Item, Void> delete_col = new TableColumn<>("Delete");
 		Label pageTitle = new Label("Vendor Home Page");
 		Label upcoming = new Label("Item Table");
+		
 	}
 	
 
-	private void initialize(VendorVar var) {	
+	private void initialize(VendorVar var) {
+		var.ItemTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		
 		ArrayList<Item> itemList = new ArrayList<>();
-//		itemList.addAll(uc.getAllItems(1));
-        
+		itemList.addAll(ic.getAllItems(2));
+		Integer i;
         for (Item item : itemList) {
         	var.ItemTable.getItems().add(item);
 		}
@@ -89,26 +94,25 @@ public class VendorHomePage {
 		var.itemName_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
 		var.itemPrice_col.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
 		var.itemDesc_col.setCellValueFactory(new PropertyValueFactory<>("price"));
-		var.action_col.setCellFactory(new Callback<TableColumn<Item,Void>, TableCell<Item, Void>>() {		
+		var.delete_col.setCellFactory(new Callback<TableColumn<Item,Void>, TableCell<Item, Void>>() {		
 			@Override
 			public TableCell<Item, Void> call(TableColumn<Item, Void> param) {
 				
 				return new TableCell<Item, Void>() {
-					private final Button SelectButton = new Button("Select");
+					private final Button DeleteButton = new Button("Delete");
 
 					{
 						
-						SelectButton.setOnMouseClicked(e ->{
+						DeleteButton.setOnMouseClicked(e ->{
 							Item data = getTableView().getItems().get(getIndex());
-					       
-					        for (Item item : itemList) {
-					        	var.ItemTable.getItems().add(item);
-							}
+							ic.deleteItem(data.getItemId());
+							ArrayList<Item> itemList = ic.getAllItemsByVendor(data.getUserId());
+					        ObservableList<Item> itemList1 = FXCollections.observableArrayList(itemList);
 					        
-					        var.ItemTable.refresh();
-					        
+							var.ItemTable.setItems(itemList1);
+							var.ItemTable.refresh();
 						});
-						
+					
 					}
 					
 					@Override
@@ -117,12 +121,14 @@ public class VendorHomePage {
 						if(empty) {
 							setGraphic(null);
 						} else {
-							setGraphic(SelectButton);
+							setGraphic(DeleteButton);
 						}
 					}
 				};
 			};
 		});
+		
+		
 //		for (PanelHeader panel : unfinishedPanel) {
 //			var.unfinishedTable.getItems().add(panel);
 //		}
@@ -139,17 +145,30 @@ public class VendorHomePage {
 //		var.insertButton = new Button("Insert");
 		
 		var.insertFormBox.getChildren().addAll(
-				var.InsertFormTitle, var.itemName_label, var.itemName_tf
+				var.InsertFormTitle, 
+				var.itemName_label, var.itemName_tf, 
+				var.itemDescription_label, var.itemDescription_tf, 
+				var.itemPrice_label, var.itemPrice_tf, 
+				var.insertErrorMessage_label, 
+				var.insertButton
 			);
 		
+		var.updateFormBox.getChildren().addAll(
+				var.UpdateFormTitle, 
+				var.updateItemName_label,
+				var.updateItemPrice_label, var.updateItemPrice_tf, 
+				var.updateErrorMessage_label, 
+				var.updateButton
+			);
 		
-		
-		var.ItemTable.getColumns().addAll(var.itemName_col, var.itemPrice_col, var.itemDesc_col, var.action_col);
-		
+		var.formBox.getChildren().addAll(var.insertFormBox, var.updateFormBox);
+		var.ItemTable.getColumns().addAll(var.itemName_col, var.itemPrice_col, var.itemDesc_col, var.delete_col);
+	
 		var.homeContainer.getChildren().addAll(
 				var.pageTitle,
 				var.upcoming,
-				var.ItemTable
+				var.ItemTable,
+				var.formBox
 			);
 		
 		
@@ -166,13 +185,15 @@ public class VendorHomePage {
 		var.pageTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
 		var.InsertFormTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 20px;");
 		var.UpdateFormTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 20px;");
-		var.formBox.setAlignment(Pos.CENTER);
 		var.formBox.setMaxWidth(750);
 		var.ItemTable.setMaxHeight(200);
 		var.itemName_col.setMinWidth(200);
 		var.itemPrice_col.setPrefWidth(200);
 		var.itemDesc_col.setPrefWidth(200);
-		var.formBox.setPadding(new Insets(20, 30, 30, 30));
+		var.insertFormBox.setPrefWidth(250);
+		var.updateFormBox.setPrefWidth(250);
+		var.formBox.setSpacing(40);
+		var.updateItemName_label.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 16px;");
 	}
 	
 	public VendorHomePage(Stage stage) {
@@ -181,7 +202,9 @@ public class VendorHomePage {
 		initialize(var);
 		style(var);
 		uc.VendorPageHandler(var,stage);
-		
+//		Dikasih user parameter
+		ic.addItem(var);
+		ic.updateItem(var);
 		stage.setScene(var.homeScene);
 		stage.setTitle("User Homepage");
 		stage.show();

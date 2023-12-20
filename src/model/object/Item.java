@@ -20,7 +20,7 @@ public class Item {
 		this.itemDescription = itemDescription;
 		this.price = price;
 	}
-
+	
 	public Integer getItemId() {
 		return itemId;
 	}

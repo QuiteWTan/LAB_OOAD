@@ -76,7 +76,7 @@ public class LoginPage {
 		var.error.setStyle("-fx-text-fill: RED");
 		var.pageTitle.setStyle("-fx-font-weight: bold;" + "-fx-font-size: 24px;");
 	}
-
+	
 	public LoginPage(Stage stage) {
 		LoginVar var = new LoginVar();
 		

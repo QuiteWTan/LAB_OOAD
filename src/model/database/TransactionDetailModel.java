@@ -59,8 +59,15 @@ public class TransactionDetailModel {
 		
 		String query = String.format("SELECT th.transactionId, th.userId, td.itemId, td.quantity from `transactionheaders` th JOIN `transactiondetails` td ON th.transactionId = td.transactionId WHERE userId = %d", userId);
 		Connect db = Connect.getInstance();
-		
+	
 		db.execute(query);
+	}
+	
+	public boolean DeleteAllTransactionByItem(Integer itemId) {
+		String query = String.format("DELETE FROM transactionheaders where itemId = %d ", itemId);
+		Connect db = Connect.getInstance();
+		db.execute(query);
+		return true;
 	}
 	
 //	public ArrayList<FanTransaction> getTransactionHistoryByFan(Integer userId) {
