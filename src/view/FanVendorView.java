@@ -212,7 +212,7 @@ public class FanVendorView {
 		uc.FanVendorHandler(var, stage, user);
 
 		stage.setScene(var.homeScene);
-		stage.setTitle("User Homepage");
+		stage.setTitle("View Vendor");
 		stage.show();
 
 	}

@@ -213,7 +213,7 @@ public class VendorHomePage {
 		ic.addItem(var, this.Vendor);
 		ic.updateItem(var, this.Vendor);
 		stage.setScene(var.homeScene);
-		stage.setTitle("User Homepage");
+		stage.setTitle("Homepage");
 		stage.show();
 
 	}

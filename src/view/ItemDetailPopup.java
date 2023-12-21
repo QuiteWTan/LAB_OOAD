@@ -78,7 +78,7 @@ public class ItemDetailPopup {
 		style(var);
 		ic.assignData(var, this.vendorItem);
 		var.stage.setScene(var.ItemDetailScene);
-		var.stage.setTitle("Panel Statistics");
+		var.stage.setTitle("Item Detail");
 		var.stage.setResizable(false);
 		var.stage.show();
 		

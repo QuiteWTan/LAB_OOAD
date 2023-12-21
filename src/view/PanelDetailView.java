@@ -95,7 +95,7 @@ public class PanelDetailView {
 		panelController.FanPanelDetailHandler(var, user, panelHeader);
 
 		var.stage.setScene(var.PanelDetailScene);
-		var.stage.setTitle("Panel Statistics");
+		var.stage.setTitle("Panel Detail");
 		var.stage.setResizable(false);
 		var.stage.show();
 

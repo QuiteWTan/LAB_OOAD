@@ -208,7 +208,7 @@ public class FanHomePage {
 		uc.FanHandler(var, stage, user);
 
 		stage.setScene(var.homeScene);
-		stage.setTitle("User Homepage");
+		stage.setTitle("Homepage");
 		stage.show();
 
 	}
