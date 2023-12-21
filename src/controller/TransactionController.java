@@ -7,7 +7,6 @@ import model.object.FanTransaction;
 import model.object.User;
 import model.object.Item;
 import model.object.TransactionDetail;
-import model.object.TransactionHeader;
 import view.ViewAllTransactionHistory;
 import view.ViewAllTransactionHistory.AllTransactionHistoryVar;
 import model.database.TransactionDetailModel;
@@ -15,6 +14,7 @@ import model.database.TransactionHeaderModel;
 import model.database.itemModel;
 
 public class TransactionController {
+	
 	TransactionDetailModel tdm = new TransactionDetailModel();
 	TransactionHeaderModel thm = new TransactionHeaderModel();
 	itemModel im = new itemModel();
@@ -45,14 +45,21 @@ public class TransactionController {
 		return ft;
 	}
 	
-	public void navigateViewAllTransactionHistory(Stage stage, User user) {
-		new ViewAllTransactionHistory(stage, user);
-	}
 	
-	public void ViewAllTransactionHistory(AllTransactionHistoryVar var, Stage stage){
-		var.MenuItemLogout.setOnAction(e->{
+	public void TransactionHistoryHandler(AllTransactionHistoryVar var, Stage stage, User user) {
+
+		var.menuItemPanel.setOnAction(e -> {
+			uc.navigateFanHome(stage, user);
+		});
+
+		var.menuItemVendor.setOnAction(e -> {
+			uc.navigateFanVendor(stage, user);
+		});
+
+		var.menuItemLogOut.setOnAction(e -> {
 			uc.navigateLogin(stage);
 		});
+
 	}
 	
 }

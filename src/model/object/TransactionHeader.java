@@ -1,15 +1,9 @@
 package model.object;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import database.Connect;
-
 public class TransactionHeader {
 	private Integer transactionId;
 	private Integer userId;
-	
+
 	public TransactionHeader(Integer transactionId, Integer userId) {
 		this.transactionId = transactionId;
 		this.userId = userId;
@@ -30,6 +24,5 @@ public class TransactionHeader {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	
-	
+
 }

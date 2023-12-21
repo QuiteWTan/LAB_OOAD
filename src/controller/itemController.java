@@ -140,9 +140,8 @@ public class itemController {
 			String itemName = var.itemName_tf.getText();
 			String itemDesc = var.itemDescription_tf.getText();
 			Integer itemPrice = priceTemp;
-//			di add user idnya
 			
-			im.addItem(2, itemName, itemDesc, itemPrice);
+			im.addItem(Vendor.getUserId(), itemName, itemDesc, itemPrice);
 			ArrayList<Item> itemList = getAllItemsByVendor(Vendor.getUserId());
 	        ObservableList<Item> itemList1 = FXCollections.observableArrayList(itemList);
 	        

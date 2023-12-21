@@ -3,7 +3,7 @@ package model.object;
 public class PanelDetail {
 	private Integer panelId;
 	private Integer userId;
-	
+
 	public PanelDetail(Integer panelId, Integer userId) {
 		super();
 		this.panelId = panelId;
@@ -25,8 +25,5 @@ public class PanelDetail {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-    
-}
-	
-	
 
+}

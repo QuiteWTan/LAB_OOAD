@@ -22,7 +22,9 @@ import view.FanHomePage.HomeVar;
 import view.FanVendorView;
 import view.FanVendorView.FanVendorVar;
 import view.VendorHomePage.VendorVar;
+import view.ViewAllTransactionHistory.AllTransactionHistoryVar;
 import view.ViewAccount;
+import view.ViewAllTransactionHistory;
 
 public class UserController {
 	
@@ -47,6 +49,10 @@ public class UserController {
 		new FanVendorView(stage, user);
 	}
 	
+	public void navigateTransactionHistory(Stage stage, User user) {
+		new ViewAllTransactionHistory(stage, user);
+	}
+	
 //	========================================================
 	
 	public void navigateVendor(Stage stage, User user) {
@@ -56,7 +62,6 @@ public class UserController {
 	public void navigateInfluencer(Stage stage, User user) {
 		new InfluencerHomePage(stage, user);
 	}
-	
 	
 	public void navigateAdmin(Stage stage) {
 		
@@ -139,8 +144,8 @@ public class UserController {
 	//Fan
 	public void FanHandler(HomeVar fanVar, Stage stage, User user) {
 		
-		fanVar.menuItemPanel.setOnAction(e->{
-			navigateFanHome(stage, user);
+		fanVar.menuItemTransaction.setOnAction(e->{
+			navigateTransactionHistory(stage, user);
 		});
 		
 		fanVar.menuItemVendor.setOnAction(e->{
@@ -157,8 +162,8 @@ public class UserController {
 			navigateFanHome(stage, user);
 		});
 		
-		fanVar.menuItemVendor.setOnAction(e->{
-			navigateFanVendor(stage, user);
+		fanVar.menuItemTransaction.setOnAction(e->{
+			navigateTransactionHistory(stage, user);
 		});
 		
 		fanVar.menuItemLogOut.setOnAction(e->{
@@ -175,9 +180,6 @@ public class UserController {
 	}
 	
 	public void VendorPageHandler(VendorVar var, Stage stage, User user){
-		var.menuItemPanel.setOnAction(e->{
-			navigateVendor(stage, user);
-		});
 		
 		var.menuItemLogOut.setOnAction(e->{
 			navigateLogin(stage);

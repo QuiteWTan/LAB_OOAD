@@ -12,20 +12,20 @@ public class Connect {
 	private final String host = "localhost:3306";
 	private final String database = "snova";
 	private final String connection = String.format("jdbc:mysql://%s/%s", host, database);
-		
+
 	private Connection con;
 	private static Connect connect;
 	private static Statement stmt;
 	private static ResultSet rs;
-	
+
 	public static Connect getInstance() {
-		if(connect == null) {
+		if (connect == null) {
 			connect = new Connect();
 		}
-		
+
 		return connect;
 	}
-	
+
 	private Connect() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -36,7 +36,7 @@ public class Connect {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void execute(String query) {
 		try {
 			stmt.executeUpdate(query);
@@ -45,8 +45,7 @@ public class Connect {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public ResultSet selectData(String query) {
 		try {
 			rs = stmt.executeQuery(query);
@@ -54,23 +53,11 @@ public class Connect {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return rs;
-		
+
 	}
-	
-	public Connection getConnection() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(connection, username, password);
-			return con;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
+
 	public void close() {
 		connect.close();
 	}

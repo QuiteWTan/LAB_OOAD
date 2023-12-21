@@ -9,7 +9,7 @@ public class PanelHeader {
 	private String startTime;
 	private String endTime;
 	private Boolean isFinished;
-	
+
 	public PanelHeader(Integer panelId, Integer userId, String panelTitle, String panelDescription, String location,
 			String startTime, String endTime, Boolean isFinished) {
 		super();
@@ -86,5 +86,5 @@ public class PanelHeader {
 	public void setIsFinished(Boolean isFinished) {
 		this.isFinished = isFinished;
 	}
-	
+
 }

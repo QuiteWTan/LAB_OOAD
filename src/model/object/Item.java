@@ -1,18 +1,12 @@
 package model.object;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import database.Connect;
-
 public class Item {
 	private Integer itemId;
 	private Integer userId;
 	private String itemName;
 	private String itemDescription;
 	private Integer price;
-	
+
 	public Item(Integer itemId, Integer userId, String itemName, String itemDescription, Integer price) {
 		this.itemId = itemId;
 		this.userId = userId;
@@ -20,7 +14,7 @@ public class Item {
 		this.itemDescription = itemDescription;
 		this.price = price;
 	}
-	
+
 	public Integer getItemId() {
 		return itemId;
 	}
@@ -61,5 +55,4 @@ public class Item {
 		this.price = price;
 	}
 
-	
 }

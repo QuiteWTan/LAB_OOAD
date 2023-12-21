@@ -1,18 +1,12 @@
 package model.object;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import database.Connect;
-
 public class User {
 	private Integer userId;
 	private String username;
 	private String email;
 	private String password;
 	private String role;
-	
+
 	public User(Integer userId, String username, String email, String password, String role) {
 		this.userId = userId;
 		this.username = username;
@@ -60,5 +54,5 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-    
+
 }

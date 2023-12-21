@@ -1,16 +1,10 @@
 package model.object;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import database.Connect;
-
 public class TransactionDetail {
 	private Integer transactionId;
 	private Integer itemId;
 	private Integer quantity;
-	
+
 	public TransactionDetail(Integer transactionId, Integer itemId, Integer quantity) {
 		this.setTransactionId(transactionId);
 		this.setItemId(itemId);
@@ -40,8 +34,5 @@ public class TransactionDetail {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	
-	
-	
 
 }
