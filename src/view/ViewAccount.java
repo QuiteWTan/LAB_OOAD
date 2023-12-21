@@ -80,7 +80,7 @@ public class ViewAccount extends BorderPane {
 		this.menu = new Menu("Menu");
 		this.menuItemFan = new MenuItem("Fan Account");
 		this.menuItemInfluencer = new MenuItem("Influencer Account");
-		this.menuItemVendor = new MenuItem("VendorAccount");
+		this.menuItemVendor = new MenuItem("Vendor Account");
 		this.menuItemLogOut = new MenuItem("Log Out");
 
 		this.menu.getItems().addAll(this.menuItemFan, this.menuItemInfluencer, this.menuItemVendor,
